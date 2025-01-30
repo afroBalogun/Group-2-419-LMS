@@ -9,7 +9,7 @@ dotenv.config();
 
 
 
-// 
+// Configure the server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () =>{
     try{
