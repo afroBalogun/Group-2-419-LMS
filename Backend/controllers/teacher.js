@@ -34,7 +34,7 @@ const loginTeacher = async (req, res) => {
         const { email, password } = req.body;
         const user = await User.findOne({email});
         if(!user || (user.role !== "Teacher")){
-            return res.status(404).json({message : "Student not found"});
+            return res.status(404).json({message : "Teacher not found"});
         }
         const comparePassword = await bcrypt.compare(password, user.password);
         if(!comparePassword){
@@ -49,5 +49,27 @@ const loginTeacher = async (req, res) => {
     }
 }; 
 
+// To upload a file
+// const uploadFile = (req, res) => {
+//     if (!req.file) {
+//         return res.status(400).json({ error: "No file uploaded or invalid file type." });
+//     }
+//     res.status(200).json({message: "File uploaded successfully", file: req.file});
+// };
 
-module.exports = {registerTeacher, loginTeacher};
+const uploadFile = (req, res) => {
+    try {
+        if (!req.file) {
+            throw new Error("No file uploaded or invalid file type.");
+        }
+        res.status(200).json({
+            message: "File uploaded successfully",
+            file: req.file.filename
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+module.exports = {registerTeacher, loginTeacher, uploadFile};
