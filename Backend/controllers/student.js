@@ -2,6 +2,10 @@ const User = require('../models/user');
 const userSchema = require('../utils/validation');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const path = require("path");
+const fs = require("fs");
+
+
 // Register a student
 const registerStudent = async (req, res) => {
     try{
@@ -50,4 +54,75 @@ const loginStudent = async (req, res) => {
 }; 
 
 
-module.exports = {registerStudent, loginStudent};
+
+// Download file function
+// const downloadFile = (req, res) => {
+//     try {
+//         const { filename } = req.params;
+//         const filePath = path.join(__dirname, "..", "uploads", filename);
+
+//         // Check if the file exists
+//         if (!fs.existsSync(filePath)) {
+//             return res.status(404).json({ message: "File not found" });
+//         }
+
+//         // Send the file for download
+//         res.download(filePath, filename, (err) => {
+//             if (err) {
+//                 console.error("Error downloading file:", err);
+//                 res.status(500).json({ message: "Error downloading file" });
+//             }
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: "Internal server error" });
+//     }
+// };
+
+
+const downloadFile = (req, res) => {
+    try {
+        
+        const { filename } = req.params;
+
+        // ✅ Debugging: Log filename
+        console.log("Filename received:", filename);
+
+        // Validate filename
+        if (!filename) {
+            return res.status(400).json({ message: "Filename is required" });
+        }
+
+        // Construct file path
+        const filePath = path.join(__dirname, "..", "uploads", filename);
+
+        // ✅ Debugging: Log file path
+        console.log("File path:", filePath);
+
+        // Check if file exists
+        if (!fs.existsSync(filePath)) {
+            console.error("File not found:", filePath);
+            return res.status(404).json({ message: "File not found" });
+        }
+
+        // Send file
+        res.download(filePath, filename, (err) => {
+            if (err) {
+                console.error("Error sending file:", err.message);
+                return res.status(500).json({ message: "Error downloading file" });
+            }
+        });
+
+    } catch (error) {
+        console.error("Download error:", error.message);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+
+
+// module.exports = { downloadFile };
+
+
+
+module.exports = {registerStudent, loginStudent, downloadFile};

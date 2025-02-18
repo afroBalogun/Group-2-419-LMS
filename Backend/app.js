@@ -5,9 +5,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const morgan = require("morgan");
 
 app.use(express.json());
 app.use(cors());
+app.use(morgan("dev"));
 dotenv.config();
 
 // Connect to MongoDB
