@@ -20,7 +20,7 @@ const registerAdmin = async (req, res) => {
         const newPassword = await bcrypt.hash(password, 10);
         const newUser = new User({email, name, password : newPassword, role : "Admin"});
         await newUser.save();
-        return res.status(201).json({message : "Admin registered successfully"});
+        return res.status(201).json({message : "Admin registered successfully",  userId: newUser._id});
     }
     catch(error){
         console.log(error);
@@ -40,14 +40,16 @@ const loginAdmin = async (req, res) => {
         if(!comparePassword){
             return res.status(400).json({message : "Invalid email or password"});
         }
-        const token = jwt.sign({email : user.email, role : user.role}, process.env.JWT_SECRET);
-        return res.status(200).json({message : "Admin logged in successfully", token});    
+        const token = jwt.sign({id: user._id, email : user.email, role : user.role}, process.env.JWT_SECRET, { expiresIn: "2h" });
+        return res.status(200).json({message : "Admin logged in successfully", token, userId: user._id});    
     }
     catch(error){
         console.log(error);
         return res.status(500).json({message : "An error occured while logging in"});
     }
 }; 
+
+
 
 
 module.exports = {registerAdmin, loginAdmin};

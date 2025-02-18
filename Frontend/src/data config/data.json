@@ -1,0 +1,17 @@
+{
+  "statistics": { "totalUsers": 0, "totalCourses": 0, "activeUsers": 0 },
+  "_id": "67ab775ab1d1f5d2ff5dbdbf",
+  "role": "Student",
+  "name": "Obasa",
+  "email": "190805@live.unilag.edu.ng",
+  "password": "$2b$10$5Gv0.vm3.pKb58DtCFagTuLXjOrSnyzczu5byeHsw.ne9YUHD2zRq",
+  "coursesTeaching": [],
+  "enrolledCourses": [],
+  "managedUsers": [],
+  "feedback": [],
+  "grades": [],
+  "schedule": [],
+  "createdAt": "2025-02-11T16:14:18.293Z",
+  "updatedAt": "2025-02-11T16:14:18.293Z",
+  "__v": 0
+}
