@@ -20,7 +20,7 @@ const registerTeacher = async (req, res) => {
         const newPassword = await bcrypt.hash(password, 10);
         const newUser = new User({email, name, password : newPassword, role : "Teacher"});
         await newUser.save();
-        return res.status(201).json({message : "Teacher registered successfully"});
+        return res.status(201).json({message : "Teacher registered successfully", userId: newUser._id,});
     }
     catch(error){
         console.log(error);
@@ -40,8 +40,8 @@ const loginTeacher = async (req, res) => {
         if(!comparePassword){
             return res.status(400).json({message : "Invalid email or password"});
         }
-        const token = jwt.sign({email : user.email, role : user.role}, process.env.JWT_SECRET);
-        return res.status(200).json({message : "Teacher logged in successfully", token});    
+        const token = jwt.sign({id: user._id, email : user.email, role : user.role}, process.env.JWT_SECRET);
+        return res.status(200).json({message : "Teacher logged in successfully", token, userId: user._id,});    
     }
     catch(error){
         console.log(error);
