@@ -1,0 +1,64 @@
+{
+  "courses": [
+    {
+      "id": "course-1",
+      "title": "Introduction to Programming",
+      "description": "Learn the fundamentals of programming using Python.",
+      "teacher": "John Doe",
+      "progress": 30,
+      "lessons": [
+        { "id": "lesson-1", "title": "Variables and Data Types" },
+        { "id": "lesson-2", "title": "Control Structures" },
+        { "id": "lesson-3", "title": "Functions and Modules" }
+      ],
+      "assignments": [
+        { "id": "assignment-1", "title": "Basic Syntax", "dueDate": "2025-03-01" },
+        { "id": "assignment-2", "title": "Mini Project", "dueDate": "2025-03-15" }
+      ],
+      "materials": [
+        { "id": "material-1", "title": "Python Cheat Sheet", "url": "https://example.com/python-cheatsheet" },
+        { "id": "material-2", "title": "Intro to Python Video", "url": "https://example.com/python-video" }
+      ]
+    },
+    {
+      "id": "course-2",
+      "title": "Advanced Web Development",
+      "description": "Deep dive into modern web development techniques and frameworks.",
+      "teacher": "Jane Smith",
+      "progress": 80,
+      "lessons": [
+        { "id": "lesson-1", "title": "React Basics" },
+        { "id": "lesson-2", "title": "State Management with Redux" },
+        { "id": "lesson-3", "title": "Building REST APIs" }
+      ],
+      "assignments": [
+        { "id": "assignment-1", "title": "Build a Todo App", "dueDate": "2025-04-15" },
+        { "id": "assignment-2", "title": "REST API Project", "dueDate": "2025-04-30" }
+      ],
+      "materials": [
+        { "id": "material-1", "title": "React Documentation", "url": "https://reactjs.org/docs/getting-started.html" },
+        { "id": "material-2", "title": "Redux Guide", "url": "https://redux.js.org/introduction/getting-started" }
+      ]
+    },
+    {
+      "id": "course-3",
+      "title": "Data Science Essentials",
+      "description": "An introductory course to data science and analytics.",
+      "teacher": "Alice Brown",
+      "progress": 50,
+      "lessons": [
+        { "id": "lesson-1", "title": "Introduction to Data Science" },
+        { "id": "lesson-2", "title": "Data Visualization Techniques" },
+        { "id": "lesson-3", "title": "Machine Learning Basics" }
+      ],
+      "assignments": [
+        { "id": "assignment-1", "title": "Data Cleaning Project", "dueDate": "2025-05-10" },
+        { "id": "assignment-2", "title": "Visualization Dashboard", "dueDate": "2025-05-20" }
+      ],
+      "materials": [
+        { "id": "material-1", "title": "Data Science Handbook", "url": "https://example.com/data-science-handbook" },
+        { "id": "material-2", "title": "Intro to Machine Learning", "url": "https://example.com/ml-intro" }
+      ]
+    }
+  ]
+}
