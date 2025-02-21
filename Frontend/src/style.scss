@@ -197,7 +197,7 @@ body{
   }
 }
 
-.progress-bar {
+.progress-bar{
   height: 20px;
   width: 100%;
   background-color: #e0e0de;
@@ -206,39 +206,25 @@ body{
   text-align: center;
   position: relative;
 
-  .progress-filler {
+  .progress-filler{
     height: 100%;
     width: var(--progress);
-    background-color: #4caf50;
+    background-color: coral;
     border-radius: inherit;
     transition: width 0.5s ease-in-out;
     position: absolute;
     z-index: 1;
   }
 
-  .progress-text {
+  .progress-text{
     font-size: 13px;
     font-weight: bold;
     height: inherit;
-    z-index: 2;
+    z-index: 5;
     text-align: center;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
   }
-  
-  .default-text {
-    position: relative;
-  }
-
-  .white-text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    color: white;
-    z-index: 3;
-    border: 1px solid red;
-  }
 }
+
