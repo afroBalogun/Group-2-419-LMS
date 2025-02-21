@@ -7,13 +7,16 @@
       "teacher": "John Doe",
       "progress": 30,
       "lessons": [
-        { "id": "lesson-1", "title": "Variables and Data Types" },
-        { "id": "lesson-2", "title": "Control Structures" },
-        { "id": "lesson-3", "title": "Functions and Modules" }
+        { "id": "week-1", "title": "Variables and Data Types" },
+        { "id": "week-2", "title": "Control Structures" },
+        { "id": "week-3", "title": "Functions and Modules" },
+        { "id": "week-4", "title": "Data Structures" }
       ],
       "assignments": [
-        { "id": "assignment-1", "title": "Basic Syntax", "dueDate": "2025-03-01" },
-        { "id": "assignment-2", "title": "Mini Project", "dueDate": "2025-03-15" }
+        { "id": "week-1", "title": "Basic Syntax", "dueDate": "2025-03-01" },
+        { "id": "week-2", "title": "Mini Project", "dueDate": "2025-03-15" },
+        { "id": "week-3", "title": "Advanced Functions", "dueDate": "2025-03-22" },
+        { "id": "week-4", "title": "Data Structures Assignment", "dueDate": "2025-03-29" }
       ],
       "materials": [
         { "id": "material-1", "title": "Python Cheat Sheet", "url": "https://example.com/python-cheatsheet" },
@@ -27,13 +30,16 @@
       "teacher": "Jane Smith",
       "progress": 80,
       "lessons": [
-        { "id": "lesson-1", "title": "React Basics" },
-        { "id": "lesson-2", "title": "State Management with Redux" },
-        { "id": "lesson-3", "title": "Building REST APIs" }
+        { "id": "week-1", "title": "React Basics" },
+        { "id": "week-2", "title": "State Management with Redux" },
+        { "id": "week-3", "title": "Building REST APIs" },
+        { "id": "week-4", "title": "Advanced Routing" }
       ],
       "assignments": [
-        { "id": "assignment-1", "title": "Build a Todo App", "dueDate": "2025-04-15" },
-        { "id": "assignment-2", "title": "REST API Project", "dueDate": "2025-04-30" }
+        { "id": "week-1", "title": "React Components", "dueDate": "2025-04-15" },
+        { "id": "week-2", "title": "Redux Implementation", "dueDate": "2025-04-22" },
+        { "id": "week-3", "title": "API Integration", "dueDate": "2025-04-29" },
+        { "id": "week-4", "title": "Routing and Navigation", "dueDate": "2025-05-06" }
       ],
       "materials": [
         { "id": "material-1", "title": "React Documentation", "url": "https://reactjs.org/docs/getting-started.html" },
@@ -47,13 +53,16 @@
       "teacher": "Alice Brown",
       "progress": 50,
       "lessons": [
-        { "id": "lesson-1", "title": "Introduction to Data Science" },
-        { "id": "lesson-2", "title": "Data Visualization Techniques" },
-        { "id": "lesson-3", "title": "Machine Learning Basics" }
+        { "id": "week-1", "title": "Introduction to Data Science" },
+        { "id": "week-2", "title": "Data Visualization Techniques" },
+        { "id": "week-3", "title": "Machine Learning Basics" },
+        { "id": "week-4", "title": "Statistical Analysis" }
       ],
       "assignments": [
-        { "id": "assignment-1", "title": "Data Cleaning Project", "dueDate": "2025-05-10" },
-        { "id": "assignment-2", "title": "Visualization Dashboard", "dueDate": "2025-05-20" }
+        { "id": "week-1", "title": "Data Science Basics", "dueDate": "2025-05-10" },
+        { "id": "week-2", "title": "Visualization Project", "dueDate": "2025-05-17" },
+        { "id": "week-3", "title": "ML Model Implementation", "dueDate": "2025-05-24" },
+        { "id": "week-4", "title": "Statistical Analysis Report", "dueDate": "2025-05-31" }
       ],
       "materials": [
         { "id": "material-1", "title": "Data Science Handbook", "url": "https://example.com/data-science-handbook" },
