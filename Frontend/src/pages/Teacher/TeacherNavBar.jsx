@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const TeacherNavBar = ({ teacher }) => {
 
     return (
-      <div >
+      <div className="nav-container">
         <div className="nav-bar">
           <h2>Welcome to your Dashboard, {teacher.name}</h2>
           <div className="drop">

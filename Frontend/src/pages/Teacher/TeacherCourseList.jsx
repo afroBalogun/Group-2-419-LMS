@@ -7,7 +7,7 @@ const TeacherCourseList = ({ courses }) => {
   const navigate = useNavigate();
 
   const handleEdit = (courseId) => {
-    navigate("/edit/"+ courseId);
+    navigate("../dashboard/courses/edit/" + courseId);
   };
   const handleDelete = (courseId) => {     
     fetch('http://localhost:5000/courses/' + courseId, {
@@ -26,7 +26,7 @@ const TeacherCourseList = ({ courses }) => {
               <Link to={"../courses/"+ course.id}>
                 <h2>{course.title}</h2>
                 <p>{course.teacher}</p>
-                <p>NONE</p>
+                <p>{course.description}</p>
               </Link>
             )}
             {isEditMode && (

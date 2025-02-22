@@ -10,10 +10,13 @@ import TeacherRegister from "../pages/Teacher/TeacherRegister";
 import TeacherLogin from "../pages/Teacher/TeacherLogin";
 import TeacherDashboard from "../pages/Teacher/TeacherDashboard";
 import TeacherCourses from "../pages/Teacher/TeacherCourses";
+import TeacherCourseDetails from "../pages/Teacher/TeacherCourseDetails";
+import TeacherEditCourses from "../pages/Teacher/TeacherEditCourses";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import AdminLogin from "../pages/Admin/AdminLogin";
 import AdminRegister from "../pages/Admin/AdminRegister";
 import Footer from "../footer";
+
 
 const router = createBrowserRouter([
     {
@@ -50,7 +53,9 @@ const router = createBrowserRouter([
                     </ProtectedRoute>
                 ),
             },
+            {path: "courses/:id", element: <TeacherCourseDetails />},
             {path: "dashboard/courses/edit", element: <TeacherCourses />},
+            {path: "dashboard/courses/edit/:id", element: <TeacherEditCourses />},
         ],
     },
     {

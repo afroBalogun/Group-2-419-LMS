@@ -26,6 +26,8 @@ export default function TeacherCourses(){
 
     const {data: courses, isPending} = useFetch('http://localhost:5000/courses');
 
+    const filteredCourses = courses?.filter((course) => course.teacher === teacher?.name) || [];
+
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -36,7 +38,7 @@ export default function TeacherCourses(){
                 <section>
                     <h2>Courses</h2>
                     {isPending && <div>Pending Courses</div>}
-                    <TeacherCourseList courses={courses} />
+                    <TeacherCourseList courses={filteredCourses} />
                 </section>
             </div>
     );
