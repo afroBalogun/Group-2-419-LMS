@@ -5,7 +5,7 @@ import TeacherNavBar from "./TeacherNavBar";
 import TeacherCourseList from "./TeacherCourseList";
 import useFetch from "../../utils/useFetch";
 
-export default function TeacherDashboard(){
+export default function TeacherCourses(){
 
     // Create the extensive UI for the dashboard, the data have already been linked
     // when logged in
@@ -33,24 +33,10 @@ export default function TeacherDashboard(){
     return (
             <div className="teacher-dashboard">
                 <TeacherNavBar teacher = {teacher}/>
-                <h1>Welcome, {teacher.name}</h1>
-                <p>Email: {teacher.email}</p>
-                <p>Role: {teacher.role}</p>
                 <section>
                     <h2>Courses</h2>
                     {isPending && <div>Pending Courses</div>}
                     <TeacherCourseList courses={courses} />
-                </section>
-                <section>
-                    <h2>Announcements</h2>
-                    <div className="announcements">
-                        <div className="announcement">
-                            <strong>New Assignment:</strong> Check out the new assignment for Course 1.
-                        </div>
-                        <div className="announcement">
-                            <strong>Reminder:</strong> Next class is scheduled for Monday at 10 AM.
-                        </div>
-                    </div>
                 </section>
             </div>
     );

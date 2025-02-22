@@ -9,9 +9,11 @@ import ProtectedRoute from "./ProtectedRoute";
 import TeacherRegister from "../pages/Teacher/TeacherRegister";
 import TeacherLogin from "../pages/Teacher/TeacherLogin";
 import TeacherDashboard from "../pages/Teacher/TeacherDashboard";
+import TeacherCourses from "../pages/Teacher/TeacherCourses";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import AdminLogin from "../pages/Admin/AdminLogin";
 import AdminRegister from "../pages/Admin/AdminRegister";
+import Footer from "../footer";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +50,7 @@ const router = createBrowserRouter([
                     </ProtectedRoute>
                 ),
             },
+            {path: "dashboard/courses/edit", element: <TeacherCourses />},
         ],
     },
     {
