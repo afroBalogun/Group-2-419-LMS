@@ -1,19 +1,20 @@
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import ProgressBar from "./ProgressBar";
 
 const StudentCourseList = ({ courses }) => {
 
-  const navigate = useNavigate();
 
 
   return (
     <div className="course-container">
       <div className="card-container">
-        {courses.map((course) => (
+        {courses?.map((course) => (
           <div className="card" key={course.id}>
-            <h3>{course.title}</h3>
-            <p>{course.teacher}</p>
-            <ProgressBar progress={course.progress} />
+            <Link to ={"../courses/" + course.id}>
+              <h3>{course.title}</h3>
+              <p>{course.teacher}</p>
+              <ProgressBar progress={course.progress} />
+            </Link>
           </div>
         ))}
       </div>
