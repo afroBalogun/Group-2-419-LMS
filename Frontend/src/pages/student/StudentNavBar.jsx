@@ -13,10 +13,11 @@ const StudentNavBar = ({ student }) => {
               <div className="pro-body"></div>
             </div>
             <div className="dropdown">
-              <Link to="/student/dashboard"  className="d-a">Dashboard</Link>
-              <Link to="/student/dashboard"  className="d-a">Profile</Link>
-              <Link to="/student/login"  className="d-a">Log Out</Link>
-              <Link to="/student/dashboard"  className="d-a">Settings</Link>
+              <div className="d-info">{student.email} <br/> {student.role}</div>
+              <Link to="/student/dashboard"  className="d-link">Dashboard</Link>
+              <Link to="/student/dashboard"  className="d-link">Profile</Link>
+              <Link to="/student/login"  className="d-link">Log Out</Link>
+              <Link to="/student/dashboard"  className="d-link">Settings</Link>
             </div>
           </div>
         </div>

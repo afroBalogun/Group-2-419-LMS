@@ -7,7 +7,6 @@ const useFetch = (url) => {
     const navigate = useNavigate();
     
     useEffect(() => {
-        setTimeout(() =>{
                 fetch(url)
                     .then(res => {
                         if (!res.ok ){
@@ -23,8 +22,6 @@ const useFetch = (url) => {
                     .catch(err =>{
                         console.log(err.message)
                     })
-        }, 100);
-
     }, [url]);
 
     return {data, isPending}

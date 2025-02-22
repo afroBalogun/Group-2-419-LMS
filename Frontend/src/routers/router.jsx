@@ -3,6 +3,7 @@ import App from "../App";
 import StudentLogin from "../pages/student/StudentLogin";
 import StudentRegister from "../pages/student/StudentRegister";
 import StudentDashboard from "../pages/student/StudentDashboard";
+import StudentCourseDetails from "../pages/student/StudentCourseDetails";
 import Home from "../pages/Home/Home";
 import ProtectedRoute from "./ProtectedRoute";
 import TeacherRegister from "../pages/Teacher/TeacherRegister";
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
                     </ProtectedRoute>
                 ),
             },
+            {path: "courses/:id", element: <StudentCourseDetails />},
         ],
     },
     {

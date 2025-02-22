@@ -30,8 +30,6 @@ export default function StudentDashboard(){
     return (
         <div className="student-dashboard">
             <StudentNavBar student = {student}/>
-            <p>Email: {student.email}</p>
-            <p>Role: {student.role}</p>
             <section>
                 <h2>Enrolled Courses</h2>
                 {isPending && <div>Pending Courses</div>}
