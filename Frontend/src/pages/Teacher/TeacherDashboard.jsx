@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router";
 import { useGetUserByIdQuery } from "../../redux/users/users"
 import getUserId from "../../utils/getUserId";
-import TeacherNavBar from "./TeacherNavBar";
 import TeacherCourseList from "./TeacherCourseList";
 import useFetch from "../../utils/useFetch";
 
@@ -16,7 +15,7 @@ export default function TeacherDashboard(){
 
     // If no userId, redirect to login
     if (!teacherId) {
-        navigate("/login");  
+        navigate("/teacher/login");  
         return null;
     }
 
@@ -25,7 +24,7 @@ export default function TeacherDashboard(){
     });
 
     const {data: courses, isPending} = useFetch('http://localhost:5000/courses');
-    const filteredCourses = courses?.filter((course) => course.teacher === teacher.name) || [];
+    const filteredCourses = courses?.filter((course) => course.teacher === teacher?.name) || [];
 
 
     if (isLoading) return <p>Loading...</p>;
@@ -33,7 +32,6 @@ export default function TeacherDashboard(){
 
     return (
             <div className="teacher-dashboard">
-                <TeacherNavBar teacher = {teacher}/>
                 <h1>Welcome, {teacher.name}</h1>
                 <p>Email: {teacher.email}</p>
                 <p>Role: {teacher.role}</p>

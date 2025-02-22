@@ -14,7 +14,7 @@ export default function AdminDashboard(){
 
     // If no userId, redirect to login
     if (!adminId) {
-        navigate("/login");  
+        navigate("/admin/login");  
         return null;
     }
 

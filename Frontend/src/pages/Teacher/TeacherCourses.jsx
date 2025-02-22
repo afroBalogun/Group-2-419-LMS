@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { useGetUserByIdQuery } from "../../redux/users/users"
 import getUserId from "../../utils/getUserId";
-import TeacherNavBar from "./TeacherNavBar";
+import TeacherNavBar from "../../NavBar";
 import TeacherCourseList from "./TeacherCourseList";
 import useFetch from "../../utils/useFetch";
 
