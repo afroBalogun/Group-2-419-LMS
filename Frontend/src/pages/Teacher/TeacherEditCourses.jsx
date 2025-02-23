@@ -49,7 +49,7 @@ const TeacherEditCourses = () => {
                 setTimeout(() =>{
                     setConfirm("You will be redirected to Edit Courses Page in " + timeValue/1000 + " seconds");
                     setTimeout(() =>{
-                        navigate('../dashboard/courses/edit');}, timeValue);
+                        navigate('/teacher/dashboard/courses/edit');}, timeValue);
                 }, timeValue)
             })
             

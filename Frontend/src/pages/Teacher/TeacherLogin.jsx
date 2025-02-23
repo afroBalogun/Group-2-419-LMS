@@ -1,11 +1,20 @@
-import { useState } from "react"
+import { useState,  useEffect } from "react"
 import { useLoginTeacherMutation } from "../../redux/teachers/teacher";
 import { useNavigate } from "react-router";
 import useForm from "../../utils/useForm";
+import { useDispatch } from "react-redux";
+import usersApi from "../../redux/users/users";
 
 export default function TeacherLogin(){
 
         // Customize a log in page for teachers
+        const dispatch = useDispatch();
+        useEffect(() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("userId");
+                dispatch(usersApi.util.resetApiState());
+            }, [dispatch]);
+        
 
 
     const navigate = useNavigate()

@@ -3,11 +3,11 @@ import { Link, useLocation, useNavigate } from "react-router";
 const TeacherCourseList = ({ courses }) => {
   const location = useLocation();
   const isEditMode = location.pathname.endsWith("/edit");
-  const isViewMode = location.pathname.endsWith("dashboard");
+  const isViewMode = location.pathname.endsWith("/dashboard");
   const navigate = useNavigate();
 
   const handleEdit = (courseId) => {
-    navigate("../dashboard/courses/edit/" + courseId);
+    navigate("/teacher/dashboard/courses/edit/" + courseId);
   };
   const handleDelete = (courseId) => {     
     fetch('http://localhost:5000/courses/' + courseId, {

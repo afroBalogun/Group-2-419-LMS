@@ -1,26 +1,9 @@
-import { useGetUserByIdQuery } from "../../redux/users/users"
-import getUserId from "../../utils/getUserId";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import TeacherNavBar from "../../NavBar";
 
 
 const TeacherAddCourses = () => {
 
-
-    const teacherId = getUserId();  // Get user ID from localStorage
-
-    // If no userId, redirect to login
-    if (!teacherId) {
-        navigate("/login");  
-        return null;
-    }
-
-    // teacher Data
-    const { data: teacherOne, error, isLoading  } = useGetUserByIdQuery(teacherId, {
-    });
-    if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
 
 
     const [title, setTitle] = useState('');
@@ -59,7 +42,6 @@ const TeacherAddCourses = () => {
 
     return ( 
         <div className="course-form">
-            <TeacherNavBar teacher = {teacherOne}/>
             <h1>Add Course</h1>
             <form onSubmit={handleSubmit}>
                 <label>Course Name</label>

@@ -4,8 +4,9 @@
       "title": "Introduction to Programming",
       "description": "Learn the fundamentals of programming using Python. Just testing things again.",
       "teacher": "John Doe",
+      "students":[ "James", "Nehi", "John", "Jane"],
       "id": "course-1",
-      "progress": 0,
+      "progress": 50,
       "lessons": [
         {
           "id": "week-1",
@@ -29,13 +30,13 @@
           "id": "week-1",
           "title": "React Components",
           "dueDate": "2025-04-15",
-          "completed": false
+          "completed": true
         },
         {
           "id": "week-2",
           "title": "Redux Implementation",
           "dueDate": "2025-04-22",
-          "completed": false
+          "completed": true
         },
         {
           "id": "week-3",
@@ -68,6 +69,7 @@
       "title": "Advanced Web Development",
       "description": "Deep dive into modern web development techniques and frameworks.",
       "teacher": "Jane Smith",
+      "students":[ "Jacques", "Nehi", "John", "Jane"],
       "progress": 0,
       "lessons": [
         {
@@ -131,6 +133,7 @@
       "title": "Data Science Essentials",
       "description": "An introductory course to data science and analytics.",
       "teacher": "Alice Brown",
+      "students":[ "Johan", "Nehi", "John", "Jane"],
       "progress": 0,
       "lessons": [
         {
@@ -190,6 +193,7 @@
       "title": "Data Science Essentials 2",
       "description": "An advanced course in data science and analytics.",
       "teacher": "Nehi",
+      "students":[ "James", "Nehi", "John", "Jane"],
       "progress": 0,
       "lessons": [
         {
@@ -248,13 +252,15 @@
       "id": "d501",
       "title": "Test Add",
       "description": "A test of abilities",
-      "teacher": "Nehi"
+      "teacher": "Nehi",
+      "students":[ "James", "Nehi", "John", "Jane"]
     },
     {
       "id": "9552",
       "title": "Test Add",
       "description": "A test of abilities",
-      "teacher": "Nehi"
+      "teacher": "Nehi",
+      "students":[ "James", "Nehi", "John", "Jane"]
     }
   ]
 }

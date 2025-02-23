@@ -11,7 +11,11 @@ const NavBar = () => {
   const role = user ? user.role.trim().toLowerCase() : "";
   const logout = useLogout(role);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return   (
+    <nav className="nav-bar">
+      <h1>Welcome</h1>
+    </nav>
+  );
   if (error) return null;
 
 
@@ -48,9 +52,9 @@ const NavBar = () => {
           </div>
           <div className="sub-nav-bar">
             <div className="nav-info-container">
-              <div className="courses">Dashboard</div>
-              <div className="nav-name">Courses</div>
-              <div className="courses">Discover New</div>
+              <Link to="/student/dashboard"  className="courses">Dashboard</Link>
+              <Link to="/student/dashboard/courses/edit" className="nav-name">Courses</Link>
+              <Link to="/student/dashboard" className="courses">Discover New</Link>
             </div>
           </div>
         </div>
@@ -90,10 +94,10 @@ const NavBar = () => {
             <Link to="/teacher/dashboard" className="courses">
               Dashboard
             </Link>
-            <Link to="../dashboard/courses/edit" className="nav-name">
+            <Link to="teacher/dashboard/courses/edit" className="nav-name">
               Edit Courses
             </Link>
-            <Link to="../dashboard/courses/add" className="courses">
+            <Link to={"teacher/dashboard/courses/add"} className="courses">
               Add New
             </Link>
           </div>

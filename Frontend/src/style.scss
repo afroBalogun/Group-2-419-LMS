@@ -23,16 +23,6 @@ $padding-width:10px;
     font-size: 14px;
   }
 
-  $padding-width:10px;
-  .footer {
-    background-color: #bdc3c7;
-    width: calc(100% - 20px - (2 * $padding-width)) ;
-    margin-bottom: 10px;
-    padding: $padding-width;
-    position: absolute;bottom: 0;
-    text-align: center;
-    font-size: 0.9em;
-  }
 
   .container {
     padding: 20px;
@@ -116,17 +106,6 @@ $padding-width:10px;
 .teacher-dashboard{
   p{
     font-size: 14px;
-  }
-
-  $padding-width:10px;
-  .footer {
-    background-color: #bdc3c7;
-    width: calc(100% - 20px - (2 * $padding-width)) ;
-    margin-bottom: 10px;
-    padding: $padding-width;
-    position: absolute;bottom: 0;
-    text-align: center;
-    font-size: 0.9em;
   }
 
   .container {

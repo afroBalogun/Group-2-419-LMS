@@ -8,8 +8,9 @@ export default function App() {
     return (
         <div>
             <NavBar/>
-            <h2>App</h2>
+            <main>
             <Outlet />
+            </main>
             <Footer/>
         </div>
     );

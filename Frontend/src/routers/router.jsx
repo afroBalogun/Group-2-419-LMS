@@ -16,6 +16,7 @@ import AdminRegister from "../pages/Admin/AdminRegister";
 import AdminLogin from "../pages/Admin/AdminLogin";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import ProtectedRoute from "./ProtectedRoute";
+import StudentCourses from "../pages/student/StudentCourses";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,13 @@ const router = createBrowserRouter([
             ),
           },
           { path: "courses/:id", element: <StudentCourseDetails /> },
+          {
+            path: "dashboard/courses",
+            children: [
+              { path: "edit", element: <StudentCourses /> },
+              {/* path: "add", element: <TeacherAddCourses /> */},
+            ],
+          },
         ],
       },
       {
