@@ -1,14 +1,24 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useLoginStudentMutation } from "../../redux/students/student";
 import { useNavigate } from "react-router";
 import useForm from "../../utils/useForm";
+import { useDispatch } from "react-redux";
+import usersApi from "../../redux/users/users";
 
 export default function StudentLogin(){
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
     // Customize a log in page for students
 
+    useEffect(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        dispatch(usersApi.util.resetApiState());
+    }, [dispatch]);
 
-    const navigate = useNavigate()
+
 
 
     const [loginStudent, { isLoading, error }] = useLoginStudentMutation();

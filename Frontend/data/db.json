@@ -1,65 +1,66 @@
 {
   "courses": [
     {
-      "id": "course-1",
       "title": "Introduction to Programming",
-      "description": "Learn the fundamentals of programming using Python.",
+      "description": "Learn the fundamentals of programming using Python. Just testing things again.",
       "teacher": "John Doe",
+      "students":[ "James", "Nehi", "John", "Jane"],
+      "id": "course-1",
       "progress": 50,
       "lessons": [
         {
           "id": "week-1",
-          "title": "Variables and Data Types"
+          "title": "React Basics"
         },
         {
           "id": "week-2",
-          "title": "Control Structures"
+          "title": "State Management with Redux"
         },
         {
           "id": "week-3",
-          "title": "Functions and Modules"
+          "title": "Building REST APIs"
         },
         {
           "id": "week-4",
-          "title": "Data Structures"
+          "title": "Advanced Routing"
         }
       ],
       "assignments": [
         {
           "id": "week-1",
-          "title": "Basic Syntax",
-          "dueDate": "2025-03-01",
+          "title": "React Components",
+          "dueDate": "2025-04-15",
           "completed": true
         },
         {
           "id": "week-2",
-          "title": "Mini Project",
-          "dueDate": "2025-03-15",
+          "title": "Redux Implementation",
+          "dueDate": "2025-04-22",
           "completed": true
         },
         {
           "id": "week-3",
-          "title": "Advanced Functions",
-          "dueDate": "2025-03-22",
+          "title": "API Integration",
+          "dueDate": "2025-04-29",
           "completed": false
         },
         {
           "id": "week-4",
-          "title": "Data Structures Assignment",
-          "dueDate": "2025-03-29",
+          "title": "Routing and Navigation",
+          "dueDate": "2025-05-06",
           "completed": false
         }
       ],
       "materials": [
         {
           "id": "material-1",
-          "title": "Python Cheat Sheet",
-          "url": "https://example.com/python-cheatsheet"
+          "title": "React Documentation",
+          "url": "https://reactjs.org/docs/getting-started.html"
         },
         {
           "id": "material-2",
-          "title": "Intro to Python Video",
-          "url": "https://example.com/python-video"
+          "title": "Redux Guide",
+          "url": "https://redux.js.org/introduction/getting-started"
         }
       ]
     },
@@ -68,6 +69,7 @@
       "title": "Advanced Web Development",
       "description": "Deep dive into modern web development techniques and frameworks.",
       "teacher": "Jane Smith",
+      "students":[ "Jacques", "Nehi", "John", "Jane"],
       "progress": 0,
       "lessons": [
         {
@@ -91,22 +93,26 @@
         {
           "id": "week-1",
           "title": "React Components",
-          "dueDate": "2025-04-15"
+          "dueDate": "2025-04-15",
+          "completed": false
         },
         {
           "id": "week-2",
           "title": "Redux Implementation",
-          "dueDate": "2025-04-22"
+          "dueDate": "2025-04-22",
+          "completed": false
         },
         {
           "id": "week-3",
           "title": "API Integration",
-          "dueDate": "2025-04-29"
+          "dueDate": "2025-04-29",
+          "completed": false
         },
         {
           "id": "week-4",
           "title": "Routing and Navigation",
-          "dueDate": "2025-05-06"
+          "dueDate": "2025-05-06",
+          "completed": false
         }
       ],
       "materials": [
@@ -127,6 +133,7 @@
       "title": "Data Science Essentials",
       "description": "An introductory course to data science and analytics.",
       "teacher": "Alice Brown",
+      "students":[ "Johan", "Nehi", "John", "Jane"],
       "progress": 0,
       "lessons": [
         {
@@ -180,6 +187,80 @@
           "url": "https://example.com/ml-intro"
         }
       ]
+    },
+    {
+      "id": "course-4",
+      "title": "Data Science Essentials 2",
+      "description": "An advanced course in data science and analytics.",
+      "teacher": "Nehi",
+      "students":[ "James", "Nehi", "John", "Jane"],
+      "progress": 0,
+      "lessons": [
+        {
+          "id": "week-1",
+          "title": "Introduction to Data Science"
+        },
+        {
+          "id": "week-2",
+          "title": "Data Visualization Techniques"
+        },
+        {
+          "id": "week-3",
+          "title": "Machine Learning Basics"
+        },
+        {
+          "id": "week-4",
+          "title": "Statistical Analysis"
+        }
+      ],
+      "assignments": [
+        {
+          "id": "week-1",
+          "title": "Data Science Basics",
+          "dueDate": "2025-05-10"
+        },
+        {
+          "id": "week-2",
+          "title": "Visualization Project",
+          "dueDate": "2025-05-17"
+        },
+        {
+          "id": "week-3",
+          "title": "ML Model Implementation",
+          "dueDate": "2025-05-24"
+        },
+        {
+          "id": "week-4",
+          "title": "Statistical Analysis Report",
+          "dueDate": "2025-05-31"
+        }
+      ],
+      "materials": [
+        {
+          "id": "material-1",
+          "title": "Data Science Handbook",
+          "url": "https://example.com/data-science-handbook"
+        },
+        {
+          "id": "material-2",
+          "title": "Intro to Machine Learning",
+          "url": "https://example.com/ml-intro"
+        }
+      ]
+    },
+    {
+      "id": "d501",
+      "title": "Test Add",
+      "description": "A test of abilities",
+      "teacher": "Nehi",
+      "students":[ "James", "Nehi", "John", "Jane"]
+    },
+    {
+      "id": "9552",
+      "title": "Test Add",
+      "description": "A test of abilities",
+      "teacher": "Nehi",
+      "students":[ "James", "Nehi", "John", "Jane"]
     }
   ]
 }

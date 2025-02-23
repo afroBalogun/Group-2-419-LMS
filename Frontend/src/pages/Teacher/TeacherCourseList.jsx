@@ -1,12 +1,14 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
-const StudentCourseList = ({ courses }) => {
+const TeacherCourseList = ({ courses }) => {
   const location = useLocation();
   const isEditMode = location.pathname.endsWith("/edit");
   const isViewMode = location.pathname.endsWith("/dashboard");
+  const navigate = useNavigate();
 
-
-
+  const handleEdit = (courseId) => {
+    navigate("/teacher/dashboard/courses/edit/" + courseId);
+  };
   const handleDelete = (courseId) => {     
     fetch('http://localhost:5000/courses/' + courseId, {
       method:'DELETE'
@@ -32,7 +34,8 @@ const StudentCourseList = ({ courses }) => {
                   <h2>{course.title}</h2>
                   <p>{course.teacher}</p>
                 <div className="edit-buttons">  
-                  <button onClick={() => handleDelete(course.id)}>Remove Course</button>
+                  <button onClick={() => handleEdit(course.id)}>Edit</button>
+                  <button onClick={() => handleDelete(course.id)}>Delete</button>
                 </div>
               </div>
             )}
@@ -43,4 +46,4 @@ const StudentCourseList = ({ courses }) => {
   );
 };
 
-export default StudentCourseList;
+export default TeacherCourseList;

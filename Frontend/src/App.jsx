@@ -1,10 +1,17 @@
 import { Outlet } from "react-router";
+import NavBar from "./NavBar";
+import Footer from "./footer";
+
+
 
 export default function App() {
     return (
         <div>
-            <h2>App</h2>
+            <NavBar/>
+            <main>
             <Outlet />
+            </main>
+            <Footer/>
         </div>
     );
 }
