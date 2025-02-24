@@ -5,6 +5,7 @@ import Footer from "./footer";
 
 
 export default function App() {
+    document.title = 'GROUP 2 LMS';
     return (
         <div>
             <NavBar/>

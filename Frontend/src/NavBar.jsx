@@ -136,9 +136,15 @@ const NavBar = () => {
           </div>
           <div className="sub-nav-bar">
             <div className="nav-info-container">
-              <div className="courses">Dashboard</div>
-              <div className="nav-name">User Management</div>
-              <div className="courses">Course Management</div>
+              <Link to="admin/dashboard" >
+                Dashboard
+              </Link>
+              <Link to="admin/dashboard/users" >
+                User Management
+              </Link>
+              <Link to="admin/dashboard/courses">
+                Course Management
+              </Link>
             </div>
           </div>
         </div>

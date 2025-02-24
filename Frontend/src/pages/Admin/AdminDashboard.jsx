@@ -53,6 +53,7 @@ export default function AdminDashboard() {
                         <p><strong>Total Users:</strong> {totalUserCount}</p>
                         <p><strong>New Sign-ups (Last 7 Days):</strong> 5</p>
                         <p><strong>Active Users:</strong> 8</p>
+                        <p>{uniqueTeachers}</p>
                     </div>
                 </div>
 
