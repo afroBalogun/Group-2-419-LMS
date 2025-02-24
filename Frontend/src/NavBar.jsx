@@ -109,7 +109,7 @@ const NavBar = () => {
       <nav className="nav-bar admin-nav">
         <div>
           <div className="i-nav-bar">
-            <h2>Welcome to your Dashboard, {user.name}</h2>
+            <h2>Welcome to your Admin Panel, {user.name}</h2>
             <div className="drop">
               <div className="pro-pic">
                 <div className="pro-head"></div>
@@ -136,9 +136,15 @@ const NavBar = () => {
           </div>
           <div className="sub-nav-bar">
             <div className="nav-info-container">
-              <div className="courses">Dashboard</div>
-              <div className="nav-name">Courses</div>
-              <div className="courses">Discover New</div>
+              <Link to="admin/dashboard" >
+                Dashboard
+              </Link>
+              <Link to="admin/dashboard/users" >
+                User Management
+              </Link>
+              <Link to="admin/dashboard/courses">
+                Course Management
+              </Link>
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ import Footer from "./footer";
 import Home from "./pages/Home/Home";
 
 export default function App() {
-  return (
+return (
     <div>
       <NavBar />
       <main>

@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home";
 import StudentRegister from "../pages/student/StudentRegister";
 import StudentLogin from "../pages/student/StudentLogin";
 import StudentDashboard from "../pages/student/StudentDashboard";
+import StudentCourses from "../pages/student/StudentCourses";
 import StudentCourseDetails from "../pages/student/StudentCourseDetails";
 import TeacherRegister from "../pages/Teacher/TeacherRegister";
 import TeacherLogin from "../pages/Teacher/TeacherLogin";
@@ -15,8 +16,11 @@ import TeacherAddCourses from "../pages/Teacher/TeacherAddCourses";
 import AdminRegister from "../pages/Admin/AdminRegister";
 import AdminLogin from "../pages/Admin/AdminLogin";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
+import AdminUserList from "../pages/Admin/AdminUserList";
+import AdminCourseList from "../pages/Admin/AdminCourseList";
 import ProtectedRoute from "./ProtectedRoute";
-import StudentCourses from "../pages/student/StudentCourses";
+
+
 
 const router = createBrowserRouter([
   {
@@ -85,6 +89,8 @@ const router = createBrowserRouter([
               </ProtectedRoute>
             ),
           },
+          { path: "dashboard/users", element: <AdminUserList /> },
+          { path: "dashboard/courses", element: <AdminCourseList/> },
         ],
       },
       { path: "*", element: <Navigate to="/" replace /> },
