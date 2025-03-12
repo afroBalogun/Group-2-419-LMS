@@ -17,6 +17,9 @@ export const studentApi = createApi({
         }
     }),
     endpoints: (builder) => ({
+        getStudentCourses: builder.query({
+            query: (studentId) => `/${studentId}/courses`,
+        }),
         registerStudent: builder.mutation({
             query: (newStudent) => ({
                 url: '/register',
@@ -36,5 +39,5 @@ export const studentApi = createApi({
     }),
 });
 
-export const { useRegisterStudentMutation, useLoginStudentMutation } = studentApi;
+export const { useRegisterStudentMutation, useLoginStudentMutation, useGetStudentCoursesQuery } = studentApi;
 export default studentApi;

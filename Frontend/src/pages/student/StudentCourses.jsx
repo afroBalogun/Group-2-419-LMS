@@ -1,40 +1,122 @@
+import { useEffect, useState } from "react";
+import getBaseUrl from "../../utils/baseUrl";
+import { useEnrollStudentMutation, useRemoveStudentMutation } from "../../redux/courses/course";
+import useUserId from "../../utils/useUserId";
+import Loading from "../../components/Loading";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { HiOutlineAcademicCap } from "react-icons/hi";
 import { useNavigate } from "react-router";
-import { useGetUserByIdQuery } from "../../redux/users/users"
-import getUserId from "../../utils/getUserId";
-import StudentCourseList from "./StudentCourseList";
-import useFetch from "../../utils/useFetch";
 
-export default function StudentCourses(){
 
-    // Create the extensive UI for the dashboard, the data have already been linked
-    // when logged in
-    // the functionality to fetch all use data has been provided in the home page.
+export default function StudentCourses() {
+    // Store courses in state
+    const [courses, setCourses] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Mutation for enrolling a student in a course
+    const [enrollStudent] = useEnrollStudentMutation();
+
+    const [removeStudent] = useRemoveStudentMutation();
+    // get student
+    const studentId = useUserId()
 
     const navigate = useNavigate()
-    const studentId = getUserId();  // Get user ID from localStorage
 
-    // If no userId, redirect to login
-    if (!studentId) {
-        navigate("student/login");  
-        return null;
-    }
+    const handleEnroll = async (courseId) => {
+        if (!studentId) return alert("Student ID not found!");
 
-    // student Data
-    const { data: student, error, isLoading  } = useGetUserByIdQuery(studentId, {
-    });
+        try {
+            await enrollStudent({ courseId, studentId }).unwrap();
+            alert("Enrollment successful!");
+            window.location.href = "/student/dashboard";
+        } catch (error) {
+            console.error("Enrollment Error:", error);
+            alert("Failed to enroll.");
+        }
+    };
 
-    const {data: courses, isPending} = useFetch('http://localhost:5000/courses');
+    
+    const handleRemove = async (courseId) => {
+        if (!studentId) return alert("Student ID not found!");
+    
+        try {
+            await removeStudent({ courseId, studentId }).unwrap();
+            alert("Removed successfully!");
+            window.location.href = "/student/dashboard";
+        } catch (error) {
+            console.error("Remove Error:", error);
+            alert("Failed to remove.");
+        }
+    };
+    
 
-    const filteredCourses = courses?.filter((course) => course.students?.includes(student?.name) ) || [];
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const response = await fetch(`${getBaseUrl()}/courses`);
+                if (!response.ok) throw new Error("Failed to fetch courses");
 
+                const data = await response.json();
+                setCourses(data); 
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCourses();
+    }, []);
+
+    // Handle loading state
+    if (loading) return <Loading/>;
+
+    // Handle errors
+    if (error) return <p>Error fetching courses: {error}</p>;
+
+    // Handle empty courses
+    if (courses.length === 0) return <p>No courses available.</p>;
+
+    // Generate table rows
+    const courseDetails = courses.map((course, index) => (
+        <tr key={index} className="">
+            <td>{index + 1}</td>
+            <td>{course.title}</td>
+            <td>{course.teacher.name}</td>
+            <td className="flex gap-2">
+            <button onClick={() => handleEnroll(course._id)} className="text-white flex justify-center items-center gap-1 bg-blue-500 text-sm rounded-md px-4 py-1 hover:cursor-pointer transition-all duration-100 hover:scale-105 hover:shadow-xl">
+                <HiOutlineAcademicCap />
+                Enroll
+            </button>
+            <button onClick={() => handleRemove(course._id)} className="text-white flex justify-center items-center gap-1 bg-red-500 text-sm rounded-md px-4 py-1 hover:cursor-pointer transition-all duration-100 hover:scale-105 hover:shadow-xl">
+                <RiDeleteBin5Line />
+                Remove
+            </button>
+
+
+            </td>
+        </tr>
+    ));
 
     return (
-            <div className="student-dashboard">
-                <section>
-                    <h2>Courses</h2>
-                    {isPending && <div>Pending Courses</div>}
-                    <StudentCourseList courses={filteredCourses} />
-                </section>
-            </div>
+        <main className="w-full flex justify-center items-center p-4">
+            <section className="w-3/4 shadow-md flex flex-col gap-2 justify-center p-10">
+                <h2 className="text-xl font-bold">Courses</h2>
+                <table className="w-full border-separate border-spacing-2">
+                    <thead className="uppercase font-semibold">
+                        <tr>
+                            <td>s/n</td>
+                            <td>Course Name</td>
+                            <td>Course Lecturer</td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody className="">
+                        {courseDetails}
+                    </tbody>
+                </table>
+            </section>
+        </main>
     );
 }

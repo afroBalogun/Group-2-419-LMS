@@ -71,5 +71,23 @@ const uploadFile = (req, res) => {
     }
 };
 
+const getTeacherCourses = async (req, res) => {
+    try {
+        const { teacherId } = req.params;
+        
+        // Find the teacher and populate assigned courses
+        const teacher = await User.findById(teacherId).populate("coursesTeaching");
+        
+        if (!teacher) {
+            return res.status(404).json({ message: "Teacher not found" });
+        }
 
-module.exports = {registerTeacher, loginTeacher, uploadFile};
+        res.status(200).json(teacher.assignedCourses);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+
+module.exports = {registerTeacher, loginTeacher, uploadFile, getTeacherCourses};
