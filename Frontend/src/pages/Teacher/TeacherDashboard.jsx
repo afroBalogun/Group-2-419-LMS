@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router";
 import { useGetUserByIdQuery } from "../../redux/users/users"
-import getUserId from "../../utils/useUserId";
 import useUserId from "../../utils/useUserId";
 import useCourses from "../../utils/useCourses";
 import Loading from "../../components/Loading";

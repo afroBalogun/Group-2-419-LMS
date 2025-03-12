@@ -2,7 +2,6 @@ import { useNavigate } from "react-router";
 import { useGetUserByIdQuery } from "../../redux/users/users";
 import useUserId from "../../utils/useUserId";
 import { useEffect, useState } from "react";
-import getBaseUrl from "../../utils/baseUrl";
 import useCourses from "../../utils/useCourses";
 import Loading from "../../components/Loading";
 
