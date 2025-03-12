@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useGetUserByIdQuery } from "../redux/users/users";
 import useUserId from "../utils/useUserId";
-import { IoIosClose, IoIosMenu } from "react-icons/io";
 import { FaUserCircle, FaSignOutAlt, FaHome, FaChalkboardTeacher } from "react-icons/fa";
-import { Link, NavLink, useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import useLogout from "../utils/LogOut";
 import Loading from "./Loading";
 
@@ -20,10 +19,24 @@ export default function NavBar() {
     const [showDropDown, setShowDropDown] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     
+    const dropdownRef = useRef(null); // ⬅️ Reference for dropdown
+
     const toggleDropDown = () => setShowDropDown(prev => !prev);
     const toggleMenu = () => setMenuOpen(prev => !prev);
 
     const logout = useLogout();
+
+    // ⬇️ Close dropdown when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropDown(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     if (isLoading) return <nav className="bg-blue-500"><Loading/></nav>;
     if (error) return <nav className="bg-red-500"><h2>Error loading user</h2></nav>;
@@ -43,24 +56,23 @@ export default function NavBar() {
                 {/* Profile & Menu Button */}
                 <div className="flex items-center gap-4">
                     <FaUserCircle onClick={toggleDropDown} className="text-4xl cursor-pointer hover:scale-110 transition-all" />
-
-                    <button className="text-3xl md:hidden" onClick={toggleMenu}>
-                        {menuOpen ? <IoIosClose /> : <IoIosMenu />}
-                    </button>
                 </div>
             </div>
 
             {/* Dropdown Menu */}
-            <ul className={`absolute right-4 top-16 bg-white text-gray-800 shadow-md rounded-lg p-4 w-52 transition-all duration-200 ${showDropDown ? "block" : "hidden"}`}>
+            <ul 
+                ref={dropdownRef} 
+                className={`absolute right-4 top-16 bg-white text-gray-800 shadow-md rounded-lg p-4 w-52 transition-all duration-200 z-20 ${showDropDown ? "block" : "hidden"}`}
+            >
                 <li className="flex flex-col items-center text-center border-b pb-3">
                     <FaUserCircle className="text-4xl mb-2" />
                     <p className="font-semibold">{user.name}</p>
                     <p className="text-sm text-gray-600">{user.email}</p>
                 </li>
-                <li className="mt-3 p-2 rounded-lg hover:bg-gray-200 transition">
+                <li className="mt-3 p-2 rounded-lg hover:bg-gray-200 transition hover:cursor-pointer">
                     <Link to={`/`}>🏠 Home</Link>
                 </li>
-                <li className="p-2 rounded-lg hover:bg-gray-200 transition">
+                <li className="p-2 rounded-lg hover:bg-gray-200 transition hover:cursor-pointer">
                     <button onClick={logout} className="flex items-center gap-2 w-full text-left">
                         <FaSignOutAlt /> Logout
                     </button>
