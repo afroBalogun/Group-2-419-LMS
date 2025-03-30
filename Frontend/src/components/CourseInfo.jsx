@@ -34,6 +34,9 @@ export default function CourseInfoPage() {
                     <p className="text-sm italic text-gray-500">No assignments available.</p>
                 )}
             </div>
+            <button className="text-sm bg-[#008a63]">
+                Download Course File
+            </button>
         </div>
     );
 }

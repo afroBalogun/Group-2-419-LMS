@@ -25,7 +25,7 @@ export default function TeacherRegister() {
             <div className="py-8 px-4 flex md:flex-grow md:place-items-center">
                 <div className="h-[400px] max-w-[500px] mx-auto bg-white shadow-md rounded px-4 pt-4 pb-8 md:w-[450px] mt-20 md:h-[450px] md:mt-10 md:px-8 2xl:px-10 2xl:max-w-[800px] 2xl:h-[500px]">
                     <h2 className="p-4 text-[1.4em] text-[#383838] font-semibold md:text-4xl text-center 2xl:text-5xl">
-                        Student Register
+                        Teacher Register
                     </h2>
                     <form className="flex flex-col p-2 gap-2 2xl:gap-6" onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-col gap-2">

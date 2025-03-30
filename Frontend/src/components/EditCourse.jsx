@@ -131,6 +131,9 @@ export default function EditCourse() {
                     >
                         + Add Assignment
                     </button>
+                    <button className="shadow-md px-4 py-2 border border-gray-300 rounded-md hover:scale-105 transition-all duration-200 hover:cursor-pointer">
+                        Upload Document
+                    </button>
 
                     <button
                         type="submit"
