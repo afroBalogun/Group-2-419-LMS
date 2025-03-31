@@ -4,72 +4,136 @@ import { useForm } from "react-hook-form";
 
 export default function StudentRegister() {
     const navigate = useNavigate();
-    const { register, handleSubmit, reset } = useForm();
-    const [registerStudent, { isLoading, error }] = useRegisterStudentMutation();
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors },
+    } = useForm();
+
+    const [registerStudent, { isLoading }] = useRegisterStudentMutation();
 
     const onSubmit = async (data) => {
         try {
             const response = await registerStudent(data).unwrap();
             console.log("Registration successful:", response);
-            localStorage.setItem("userId", response.userId);
-            localStorage.setItem("role", "student"); // Store role
 
+            localStorage.setItem("userId", response.userId);
+            localStorage.setItem("role", "student");
             navigate("/student/dashboard");
         } catch (err) {
             console.error("Registration failed:", err);
+            setError("server", {
+                type: "manual",
+                message: err.data?.message || "An error occurred. Please try again.",
+            });
         }
     };
 
     return (
-        <div className="w-full items-center justify-center flex flex-grow">
-            <div className="py-8 px-4 flex md:flex-grow md:place-items-center">
-                <div className="h-[400px] max-w-[500px] mx-auto bg-white shadow-md rounded px-4 pt-4 pb-8 md:w-[450px] mt-20 md:h-[450px] md:mt-10 md:px-8 2xl:px-10 2xl:max-w-[800px] 2xl:h-[500px]">
-                    <h2 className="p-4 text-[1.4em] text-[#383838] font-semibold md:text-4xl text-center 2xl:text-5xl">
-                        Student Register
-                    </h2>
-                    <form className="flex flex-col p-2 gap-2 2xl:gap-6" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="flex flex-col gap-2">
-                            <label className="text-sm md:text-[1em] 2xl:text-xl font-semibold">Email:</label>
-                            <input
-                                id="email"
-                                type="email"
-                                placeholder="Enter Your Email"
-                                className="bg-gray-100 py-2 px-4 rounded-2xl outline-0 transition-all duration-200 text-sm md:text-[1em] 2xl:text-lg"
-                                {...register("email", { required: "Email is required" })}
-                            />
-                        </div>
+        <div className="w-full flex justify-center items-center min-h-screen bg-gray-50">
+            <div className="bg-white shadow-lg rounded-lg p-8 w-[90%] max-w-md md:max-w-lg">
+                <h2 className="text-2xl font-bold text-center text-gray-700 mb-4">
+                    Student Register
+                </h2>
 
-                        <div className="flex flex-col gap-2">
-                            <label className="text-sm md:text-[1em] 2xl:text-xl font-semibold">Name:</label>
-                            <input
-                                id="text"
-                                type="text"
-                                placeholder="Enter your Fullname"
-                                className="bg-gray-100 py-2 px-4 rounded-2xl outline-0 transition-all duration-200 text-sm md:text-[1em] 2xl:text-lg"
-                                {...register("name", { required: "Fullname is required" })}
-                            />
-                        </div>
+                {errors.server && (
+                    <p className="text-red-500 text-center">{errors.server.message}</p>
+                )}
 
-                        <div className="flex flex-col gap-2">
-                            <label className="text-sm md:text-[1em] 2xl:text-xl font-semibold">Password:</label>
-                            <input
-                                id="password"
-                                type="password"
-                                placeholder="Enter your password"
-                                className="bg-gray-100 py-2 px-4 rounded-2xl outline-0 transition-all duration-200 text-sm md:text-[1em] 2xl:text-lg"
-                                {...register("password", { required: "Password is required" })}
-                            />
-                        </div>
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="flex flex-col">
+                        <label className="text-gray-700 font-medium">Email:</label>
+                        <input
+                            type="email"
+                            autoFocus
+                            placeholder="Enter your email"
+                            className={`bg-gray-100 p-2 rounded-md outline-none border ${
+                                errors.email ? "border-red-500" : "border-gray-300"
+                            } focus:ring-2 focus:ring-blue-400`}
+                            {...register("email", {
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                    message: "Invalid email address",
+                                },
+                            })}
+                        />
+                        {errors.email && (
+                            <p className="text-red-500 text-sm">{errors.email.message}</p>
+                        )}
+                    </div>
 
-                        <button
-                            type="submit"
-                            disabled={isLoading}
-                            className="bg-blue-400 p-3 text-white rounded-3xl mt-4 hover:cursor-pointer hover:scale-110 font-semibold transition-all duration-200 2xl:text-xl 2xl:mt-7"
-                        >
-                            {isLoading ? "Registering..." : "Register"}
-                        </button>
-                    </form>
-                </div>
+                    <div className="flex flex-col">
+                        <label className="text-gray-700 font-medium">Full Name:</label>
+                        <input
+                            type="text"
+                            placeholder="Enter your full name"
+                            className={`bg-gray-100 p-2 rounded-md outline-none border ${
+                                errors.name ? "border-red-500" : "border-gray-300"
+                            } focus:ring-2 focus:ring-blue-400`}
+                            {...register("name", { required: "Full name is required" })}
+                        />
+                        {errors.name && (
+                            <p className="text-red-500 text-sm">{errors.name.message}</p>
+                        )}
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="text-gray-700 font-medium">Password:</label>
+                        <input
+                            type="password"
+                            placeholder="Enter your password"
+                            className={`bg-gray-100 p-2 rounded-md outline-none border ${
+                                errors.password ? "border-red-500" : "border-gray-300"
+                            } focus:ring-2 focus:ring-blue-400`}
+                            {...register("password", {
+                                required: "Password is required",
+                                minLength: {
+                                    value: 6,
+                                    message: "Password must be at least 6 characters",
+                                },
+                            })}
+                        />
+                        {errors.password && (
+                            <p className="text-red-500 text-sm">{errors.password.message}</p>
+                        )}
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="bg-blue-500 text-white py-2 rounded-md font-semibold hover:bg-blue-600 transition-all duration-200 disabled:bg-blue-300"
+                    >
+                        {isLoading ? (
+                            <span className="flex justify-center items-center">
+                                <svg
+                                    className="animate-spin h-5 w-5 mr-2 text-white"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <circle
+                                        className="opacity-25"
+                                        cx="12"
+                                        cy="12"
+                                        r="10"
+                                        stroke="currentColor"
+                                        strokeWidth="4"
+                                    ></circle>
+                                    <path
+                                        className="opacity-75"
+                                        fill="currentColor"
+                                        d="M4 12a8 8 0 018-8v8H4z"
+                                    ></path>
+                                </svg>
+                                Registering...
+                            </span>
+                        ) : (
+                            "Register"
+                        )}
+                    </button>
+                </form>
             </div>
         </div>
     );

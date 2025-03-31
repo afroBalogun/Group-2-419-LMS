@@ -29,38 +29,35 @@ export default function StudentDashboard() {
     }, [student?.enrolledCourses]);
 
     const { courses } = useCourses();
-
-    if (isLoading) return <Loading/>;
-    if (error) return <p>Error: {error.message}</p>;
+    console.log("Courses:", courses);
 
     return (
-        <main className="px-8 py-4 flex flex-col gap-4">
-            <h2 className="text-xl font-bold">Student Dashboard</h2>
-            <div>
-                <h2 className="text-lg font-bold">Enrolled Courses:</h2>
-                <ul className="p-2 grid grid-cols-3 gap-8">
-                    {courses.length > 0 ? (
-                        courses
-                            .filter((course) => course._id) // Only process valid courses
-                            .map((course) => (
-                                <li 
-                                    key={course._id} 
-                                    className="shadow-md w-[350px] p-4 py-6 flex flex-col gap-3 justify-around hover:cursor-pointer hover:scale-110 transition-all duration-200"
-                                    onClick={() => navigate(`/student/dashboard/course/${course._id}`)} 
-                                >
-                                    <h4 className="font-semibold text-2xl text-blue-500">{course.title}</h4>
-                                    <p className="font-stretch-75%">{course.description}</p>
-                                    <p className="text-sm">
-                                        Lecturer: <span className="font-bold">{course.teacher?.name || "Unknown"}</span>
-                                    </p>
-                                </li>
-                            ))
-                    ) : (
-                        <p>No enrolled courses found.</p>
-                    )}
-                </ul>
+        <main className="px-8 py-4 flex flex-col gap-6">
+            <h2 className="text-2xl font-bold text-gray-800">Student Dashboard</h2>
 
-            </div>
+            <section>
+                <h3 className="text-lg font-bold text-gray-700">Enrolled Courses:</h3>
+
+                {courses.length > 0 ? (
+                    <ul className="p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {courses.map((course) => (
+                            <li
+                                key={course._id}
+                                className="shadow-lg w-full p-5 flex flex-col gap-3 rounded-md bg-white hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                                onClick={() => navigate(`/student/dashboard/course/${course._id}`)}
+                            >
+                                <h4 className="text-xl font-semibold text-blue-600">{course.title}</h4>
+                                <p className="text-gray-700">{course.description}</p>
+                                <p className="text-sm text-gray-600">
+                                    Lecturer: <span className="font-bold">{course.teacher?.name || "Unknown"}</span>
+                                </p>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="text-gray-500 italic mt-2">You are not enrolled in any courses yet.</p>
+                )}
+            </section>
         </main>
     );
 }

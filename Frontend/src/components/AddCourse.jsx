@@ -11,7 +11,7 @@ export default function AddCourse() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const { register, handleSubmit, setValue } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const [createCourse] = useCreateCourseMutation();
     const userId = useUserId(); 
@@ -43,28 +43,32 @@ export default function AddCourse() {
         }
     };
 
-    if (loading) return <Loading/>;
-    if (error) return <p>Error: {error}</p>;
+    if (loading) return <Loading />;
+    if (error) return <p className="text-red-500 text-center">{error}</p>;
 
     return (
         <main className="w-full flex justify-center items-center p-4">
-            <section className="w-1/2 shadow-md flex flex-col gap-4 p-10">
-                <h2 className="text-xl font-bold">Add Course</h2>
+            <section className="w-full max-w-lg md:w-1/2 shadow-md flex flex-col gap-4 p-6 bg-white rounded-lg">
+                <h2 className="text-xl font-bold text-gray-700">Add Course</h2>
+
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                     <input
                         type="text"
                         placeholder="Course Title"
                         {...register("title", { required: "Course title is required" })}
-                        className="p-2 border rounded-md"
+                        className="p-3 border rounded-md w-full focus:ring focus:ring-blue-300"
                     />
                     <textarea
                         placeholder="Course Description"
                         {...register("description", { required: "Course description is required" })}
-                        className="p-2 border rounded-md"
+                        className="p-3 border rounded-md w-full focus:ring focus:ring-blue-300"
                     />
 
-                    {role === "admin" && teachers && (
-                        <select {...register("teacher", { required: "Teacher is required" })} className="p-2 border rounded-md">
+                    {role === "admin" && teachers.length > 0 && (
+                        <select 
+                            {...register("teacher", { required: "Teacher is required" })} 
+                            className="p-3 border rounded-md w-full focus:ring focus:ring-blue-300"
+                        >
                             <option value="">Select a Teacher</option>
                             {teachers.map((teacher) => (
                                 <option key={teacher._id} value={teacher._id}>{teacher.name}</option>
@@ -74,7 +78,7 @@ export default function AddCourse() {
                     
                     <button
                         type="submit"
-                        className="bg-[#008a63] text-white px-4 py-2 rounded-md hover:scale-105 transition-all duration-200 hover:cursor-pointer"
+                        className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-all"
                     >
                         Add Course
                     </button>

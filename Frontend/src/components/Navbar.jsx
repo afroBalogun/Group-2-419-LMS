@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router";
 import useLogout from "../utils/LogOut";
 import Loading from "./Loading";
 
-export default function NavBar() {
+export default function Navbar() {
     const userId = useUserId();
     const { data: user, isLoading, error } = useGetUserByIdQuery(userId, { skip: !userId });
 
@@ -44,7 +44,7 @@ export default function NavBar() {
     return (
         <nav className="w-full bg-blue-500 p-4 shadow-lg text-white relative">
             {/* Top Bar */}
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-2">
                 {/* Logo & Welcome Text */}
                 <div className="flex items-center gap-2">
                     <h2 className="text-2xl font-bold">Welcome, {user?.name || "Guest"}</h2>
@@ -80,11 +80,11 @@ export default function NavBar() {
             </ul>
 
             {/* Navbar Links */}
-            <div className={`px-6 mt-4 transition-all duration-200 md:flex md:justify-center ${menuOpen ? "block" : "hidden md:flex"}`}>
-                <ul className="flex flex-col md:flex-row gap-4">
-                    <NavItem to={`/${role}/dashboard`} icon={<FaHome />} label="Dashboard" />
-                    <NavItem to={`/${role}/dashboard/courses`} icon={<FaChalkboardTeacher />} label="Courses" />
-                    {isInAdmin && <NavItem to={`/${role}/dashboard/manage-users`} icon={<FaUserCircle />} label="Users" />}
+            <div className={`px-6 mt-4 transition-all duration-200 flex justify-center `}>
+                <ul className="flex flex-wrap md:flex-row gap-4">
+                    <NavItem to={`/${role}/dashboard`} icon={<FaHome />} label="Dashboard" className= "w-20" />
+                    <NavItem to={`/${role}/dashboard/courses`} icon={<FaChalkboardTeacher />} label="Courses" className= "w-20" />
+                    {isInAdmin && <NavItem to={`/${role}/dashboard/manage-users`} icon={<FaUserCircle />} label="Users" className= "w-20" />}
                 </ul>
             </div>
         </nav>
