@@ -1,5 +1,8 @@
 const getBaseUrl = () => {
-    return "http://localhost:3000"
-}
+    return process.env.NODE_ENV === "production"
+    ? "https://citadel-missionary-form.onrender.com"
+    : "http://localhost:5000";
+};
 
-export default getBaseUrl;
+ 
+ export default getBaseUrl
