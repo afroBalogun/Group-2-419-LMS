@@ -1,78 +1,76 @@
-import { useNavigate } from "react-router"
-import useForm from "../../utils/useForm";
+import { useNavigate } from "react-router";
 import { useRegisterStudentMutation } from "../../redux/students/student";
+import { useForm } from "react-hook-form";
 
-export default function StudentRegister(){
-
-    // Work on the Student registration PAge UI 
-
-
+export default function StudentRegister() {
     const navigate = useNavigate();
-
-    const { formData: studentInfo, handleInputChange, resetForm } = useForm({
-        name: "",
-        email: "",
-        password: "",
-    });
-
+    const { register, handleSubmit, reset } = useForm();
     const [registerStudent, { isLoading, error }] = useRegisterStudentMutation();
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await registerStudent(studentInfo).unwrap();
-            console.log('Registration successful:', response);
-            localStorage.setItem("userId", response.userId);
-            localStorage.setItem("role", "student");  // Store role
 
-            navigate("/student/dashboard")
+    const onSubmit = async (data) => {
+        try {
+            const response = await registerStudent(data).unwrap();
+            console.log("Registration successful:", response);
+            localStorage.setItem("userId", response.userId);
+            localStorage.setItem("role", "student"); // Store role
+
+            navigate("/student/dashboard");
         } catch (err) {
-            console.error('Login failed:', err);
+            console.error("Registration failed:", err);
         }
     };
 
     return (
-        <div className="">
-            <form onSubmit={handleSubmit} className="registration-form">
+        <div className="w-full items-center justify-center flex flex-grow">
+            <div className="py-8 px-4 flex md:flex-grow md:place-items-center">
+                <div className="h-[400px] max-w-[500px] mx-auto bg-white shadow-md rounded px-4 pt-4 pb-8 md:w-[450px] mt-20 md:h-[450px] md:mt-10 md:px-8 2xl:px-10 2xl:max-w-[800px] 2xl:h-[500px]">
+                    <h2 className="p-4 text-[1.4em] text-[#383838] font-semibold md:text-4xl text-center 2xl:text-5xl">
+                        Student Register
+                    </h2>
+                    <form className="flex flex-col p-2 gap-2 2xl:gap-6" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="flex flex-col gap-2">
+                            <label className="text-sm md:text-[1em] 2xl:text-xl font-semibold">Email:</label>
+                            <input
+                                id="email"
+                                type="email"
+                                placeholder="Enter Your Email"
+                                className="bg-gray-100 py-2 px-4 rounded-2xl outline-0 transition-all duration-200 text-sm md:text-[1em] 2xl:text-lg"
+                                {...register("email", { required: "Email is required" })}
+                            />
+                        </div>
 
-                <label htmlFor="Name">Name:</label>
-                <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
-                    onChange={handleInputChange}
-                    placeholder="Enter your name"
-                    value={studentInfo.name} 
-                />
-                
-                <label htmlFor="studentEmail">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={studentInfo.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email"
-                    className="form-input"
-                />
+                        <div className="flex flex-col gap-2">
+                            <label className="text-sm md:text-[1em] 2xl:text-xl font-semibold">Name:</label>
+                            <input
+                                id="text"
+                                type="text"
+                                placeholder="Enter your Fullname"
+                                className="bg-gray-100 py-2 px-4 rounded-2xl outline-0 transition-all duration-200 text-sm md:text-[1em] 2xl:text-lg"
+                                {...register("name", { required: "Fullname is required" })}
+                            />
+                        </div>
 
-                <label htmlFor="studentPassword">Password</label>
-                <input
-                    type="text"
-                    id="studentPassword"
-                    name="password"
-                    value={studentInfo.password}
-                    onChange={handleInputChange}
-                    placeholder="Enter your password"
-                    className="form-input"
-                />
+                        <div className="flex flex-col gap-2">
+                            <label className="text-sm md:text-[1em] 2xl:text-xl font-semibold">Password:</label>
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder="Enter your password"
+                                className="bg-gray-100 py-2 px-4 rounded-2xl outline-0 transition-all duration-200 text-sm md:text-[1em] 2xl:text-lg"
+                                {...register("password", { required: "Password is required" })}
+                            />
+                        </div>
 
-                <button type="submit" className="submit-button" disabled={isLoading}>
-                    {isLoading ? 'Registering....' : 'Register'}
-                </button>
-
-                {error && <p className="error-message">{error.data?.message || 'Registration failed'}</p>}
-            </form>
+                        <button
+                            type="submit"
+                            disabled={isLoading}
+                            className="bg-blue-400 p-3 text-white rounded-3xl mt-4 hover:cursor-pointer hover:scale-110 font-semibold transition-all duration-200 2xl:text-xl 2xl:mt-7"
+                        >
+                            {isLoading ? "Registering..." : "Register"}
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-    )
+    );
 }

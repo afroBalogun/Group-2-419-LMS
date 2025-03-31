@@ -1,24 +1,24 @@
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 import usersApi from "../redux/users/users";
 
-const useLogout = (role) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+const useLogout = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
+    return () => {
+        console.log("Logging out...");
 
+        // ✅ Clear user session data
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
 
-    dispatch(usersApi.util.resetApiState());
+        // ✅ Reset Redux API state
+        dispatch(usersApi.util.resetApiState());
 
-
-    navigate( role + "/login");
-
-  };
-
-  return logout;
+        console.log("Redirecting to login...");
+        navigate("/"); // ✅ Redirect user to login
+    };
 };
 
 export default useLogout;

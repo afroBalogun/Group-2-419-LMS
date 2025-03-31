@@ -1,77 +1,76 @@
-import { useNavigate } from "react-router"
-import useForm from "../../utils/useForm";
+import { useNavigate } from "react-router";
 import { useRegisterAdminMutation } from "../../redux/admins/admin";
+import { useForm } from "react-hook-form";
 
-export default function AdminRegister(){
-
-    // Work on the Admin registration PAge UI 
-
+export default function AdminRegister() {
     const navigate = useNavigate();
-
-    const { formData: adminInfo, handleInputChange, resetForm } = useForm({
-        name: "",
-        email: "",
-        password: "",
-    });
-
+    const { register, handleSubmit, reset } = useForm();
     const [registerAdmin, { isLoading, error }] = useRegisterAdminMutation();
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await registerAdmin(adminInfo).unwrap();
-            console.log('Registration successful:', response);
-            localStorage.setItem("userId", response.userId);
-            localStorage.setItem("role", "admin");  // Store role
 
-            navigate("/admin/dashboard")
+    const onSubmit = async (data) => {
+        try {
+            const response = await registerAdmin(data).unwrap();
+            console.log("Registration successful:", response);
+            localStorage.setItem("userId", response.userId);
+            localStorage.setItem("role", "admin"); // Store role
+
+            navigate("/admin/dashboard");
         } catch (err) {
-            console.error('Login failed:', err);
+            console.error("Registration failed:", err);
         }
     };
 
     return (
-        <div className="">
-            <form onSubmit={handleSubmit} className="registration-form">
+        <div className="p-8 max-w-md mx-auto">
+            <h2 className="text-2xl font-bold mb-4">Admin Registration</h2>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div>
+                    <label htmlFor="name" className="block font-medium">Name:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        {...register("name", { required: true })}
+                        placeholder="Enter your name"
+                        className="w-full p-2 border rounded-md"
+                    />
+                </div>
 
-                <label htmlFor="Name">Name:</label>
-                <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
-                    onChange={handleInputChange}
-                    placeholder="Enter your name"
-                    value={adminInfo.name} 
-                />
-                
-                <label htmlFor="adminEmail">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={adminInfo.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email"
-                    className="form-input"
-                />
+                <div>
+                    <label htmlFor="email" className="block font-medium">Email:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        {...register("email", { required: true })}
+                        placeholder="Enter your email"
+                        className="w-full p-2 border rounded-md"
+                    />
+                </div>
 
-                <label htmlFor="adminPassword">Password</label>
-                <input
-                    type="text"
-                    id="adminPassword"
-                    name="password"
-                    value={adminInfo.password}
-                    onChange={handleInputChange}
-                    placeholder="Enter your password"
-                    className="form-input"
-                />
+                <div>
+                    <label htmlFor="password" className="block font-medium">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        {...register("password", { required: true })}
+                        placeholder="Enter your password"
+                        className="w-full p-2 border rounded-md"
+                    />
+                </div>
 
-                <button type="submit" className="submit-button" disabled={isLoading}>
-                    {isLoading ? 'Registering....' : 'Register'}
+                <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                    disabled={isLoading}
+                >
+                    {isLoading ? "Registering..." : "Register"}
                 </button>
 
-                {error && <p className="error-message">{error.data?.message || 'Registration failed'}</p>}
+                {error && (
+                    <p className="text-red-500 text-sm mt-2">
+                        {error.data?.message || "Registration failed"}
+                    </p>
+                )}
             </form>
         </div>
-    )
+    );
 }

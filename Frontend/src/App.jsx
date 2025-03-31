@@ -1,16 +1,16 @@
 import { Outlet } from "react-router";
-import NavBar from "./NavBar";
-import Footer from "./footer";
-import Home from "./pages/Home/Home";
+import Footer from "./components/Footer";
 
-export default function App() {
-return (
-    <div>
-      <NavBar />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <div className="flex flex-col min-h-screen">
+            <main className="flex flex-grow">
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
+    );
+};
+
+
+export default App;

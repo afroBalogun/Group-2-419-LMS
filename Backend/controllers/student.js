@@ -119,10 +119,23 @@ const downloadFile = (req, res) => {
     }
 };
 
+const getStudentCourses = async (req, res) => {
+    try {
+        const { studentId } = req.params;
+        
+        // Find the student and populate enrolled courses
+        const student = await User.findById(studentId).populate("enrolledCourses");
+        
+        if (!student) {
+            return res.status(404).json({ message: "Student not found" });
+        }
+
+        res.status(200).json(student.enrolledCourses);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 
-// module.exports = { downloadFile };
 
-
-
-module.exports = {registerStudent, loginStudent, downloadFile};
+module.exports = {registerStudent, loginStudent, downloadFile, getStudentCourses};

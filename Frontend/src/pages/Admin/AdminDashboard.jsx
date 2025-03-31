@@ -1,153 +1,106 @@
-import { useNavigate } from "react-router";
-import { useGetUserByIdQuery } from "../../redux/users/users";
-import getUserId from "../../utils/getUserId";
-import useFetch from "../../utils/useFetch";
+import { FaBookReader, FaUserCheck, FaPercentage } from "react-icons/fa";
+import { useGetCoursesQuery, useGetTotalEnrollmentsQuery } from "../../redux/courses/course";
+import { useGetUsersQuery } from "../../redux/users/users";
+import { FaBook, FaUsers } from "react-icons/fa6";
 
 export default function AdminDashboard() {
-  const navigate = useNavigate();
+    const { data: users, isLoading: usersLoading } = useGetUsersQuery();
+    const { data: courses, isLoading: coursesLoading } = useGetCoursesQuery();
+    const { data: totalEnrollments, isLoading: enrollmentsLoading } = useGetTotalEnrollmentsQuery();
+    // const { data: mostEnrolledCourse, isLoading: mostCourseLoading } = useGetMostEnrolledCourseQuery();
 
-  const adminId = getUserId(); // Get user ID from localStorage
+    // Function to get the count of each role
+    const getUserRoleCounts = (users = []) => {
+        return users.reduce((acc, user) => {
+            acc[user.role] = (acc[user.role] || 0) + 1;
+            return acc;
+        }, {});
+    };
 
-  // If no userId, redirect to login
-  if (!adminId) {
-    navigate("/admin/login");
-    return null;
-  }
+    const roleCounts = users ? getUserRoleCounts(users) : {};
+    const totalUsers = users?.length || 0;
+    const activeUsers = Math.floor(totalUsers * 0.75); // Assume 75% active users for now.
 
-  // Fetch courses and admin data
-  const { data: courses, isPending } = useFetch('http://localhost:5000/courses');
-  const { data: admin, error, isLoading } = useGetUserByIdQuery(adminId);
+    return (
+        <main className="p-8 flex flex-col gap-6">
+            {/* System Overview */}
+            <section>
+                <h2 className="text-2xl font-bold mb-2">📊 System Overview</h2>
+                <p className="italic text-gray-600">Learning Management System Statistics</p>
 
-  // Calculate counts only if courses data is available
-  const totalTeacherCount = courses?.length;
-  const totalStudentCount = courses?.reduce(
-    (total, course) => total + course.students.length,
-    0
-  );
-
-  // Unique teacher names using a Set (only counts names once)
-  const uniqueTeachers = new Set(courses?.map(course => course.teacher));
-  // Unique student names across all courses using a Set
-  const uniqueStudents = new Set();
-  courses?.forEach(course => {
-    course.students.forEach(student => uniqueStudents.add(student));
-  });
-  const totalUserCount = uniqueTeachers.size + uniqueStudents.size;
-
-  // Render loading/error states or the dashboard
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  return (
-    <div className="admin-dashboard">
-      <header className="admin-dashboard__header">
-        <h1>Dashboard</h1>
-      </header>
-
-        {/* User Management Overview */}
-        <div className="card-container">
-            <div className="row-container">
-                <div className="card admin-dashboard__card">
-                    <div className="card-header">User Management Overview</div>
-                    <div className="card-body">
-                        <p><strong>Total Users:</strong> {totalUserCount}</p>
-                        <p><strong>New Sign-ups (Last 7 Days):</strong> 5</p>
-                        <p><strong>Active Users:</strong> 8</p>
-                        <p>{uniqueTeachers}</p>
-                    </div>
+                <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <StatCard 
+                        title="Total Users" 
+                        value={usersLoading ? "Loading..." : totalUsers} 
+                        icon={<FaUsers size={40} className="text-blue-600" />} 
+                    />
+                    <StatCard 
+                        title="Total Courses" 
+                        value={coursesLoading ? "Loading..." : courses?.length || 0} 
+                        icon={<FaBook size={40} className="text-green-600" />} 
+                    />
+                    <StatCard 
+                        title="Total Enrollments" 
+                        value={enrollmentsLoading ? "Loading..." : totalEnrollments?.totalEnrollments || 0} 
+                        icon={<FaBookReader size={40} className="text-red-600" />} 
+                    />
+                    <StatCard 
+                        title="Active Users" 
+                        value={usersLoading ? "Loading..." : activeUsers} 
+                        icon={<FaUserCheck size={40} className="text-purple-600" />} 
+                    />
+                    {/* <StatCard 
+                        title="Most Enrolled Course" 
+                        value={mostCourseLoading ? "Loading..." : mostEnrolledCourse?.title || "N/A"} 
+                        icon={<FaBook size={40} className="text-orange-600" />} 
+                    /> */}
+                    <StatCard 
+                        title="Student vs Teacher Ratio" 
+                        value={
+                            usersLoading 
+                                ? "Loading..." 
+                                : `${roleCounts.Student || 0} : ${roleCounts.Teacher || 0}`
+                        }
+                        icon={<FaPercentage size={40} className="text-indigo-600" />} 
+                    />
                 </div>
+            </section>
 
+            {/* Users Overview */}
+            <section className="w-full">
+                <h2 className="text-2xl font-bold mb-2">👥 Users Overview</h2>
+                <p className="italic text-gray-600">User Distribution by Role</p>
 
-                <div className="card admin-dashboard__card">
-                    <div className="card-header">Platform Usage Statistics</div>
-                    <div className="card-body">
-                        <p><strong>Page Views:</strong> 5000</p>
-                        <p><strong>Sessions:</strong> 3500</p>
-                        <p><strong>Avg. Session Duration:</strong> 5 min</p>
-                        <div className="admin-dashboard__chart-placeholder">
-                        Chart Here
-                        </div>
-                    </div>
-                </div>
-
-                {/*<div className="card admin-dashboard__card">
-                    <div className="card-header">User Management</div>
-                    <div className="card-body">
-                        <table className="table table-striped">
-                        <thead>
-                            <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <td>1</td>
-                            <td>John Doe</td>
-                            <td>john@example.com</td>
-                            <td>
-                                <button className="btn btn-sm btn-primary">Edit</button>
-                                <button className="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                            </tr>
-                            {/* Additional rows can go here 
-                        </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
-
-                <div className="card admin-dashboard__card">
-                    <div className="card-header">Course Management</div>
-                    <div className="card-body">
-                    <table className="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Course ID</th>
-                            <th>Course Name</th>
-                            <th>Enrolled</th>
-                            <th>Actions</th>
+                <table className="w-full mt-4 border-collapse border border-gray-300 shadow-lg">
+                    <thead className="bg-gray-100">
+                        <tr className="border border-gray-300">
+                            <th className="p-3">#</th>
+                            <th className="p-3">User Role</th>
+                            <th className="p-3">Frequency</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>C001</td>
-                            <td>Introduction to Programming</td>
-                            <td>300</td>
-                            <td>
-                            <button className="btn btn-sm btn-primary">Edit</button>
-                            <button className="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        {/* Additional rows can go here 
-                        </tbody>
-                    </table>
-                    </div> 
-                </div> */}
-            </div>
+                    </thead>
+                    <tbody>
+                        {Object.entries(roleCounts).map(([role, count], index) => (
+                            <tr key={role} className="border border-gray-200 hover:bg-gray-50">
+                                <td className="p-3 text-center">{index + 1}</td>
+                                <td className="p-3 text-center font-medium">{role}</td>
+                                <td className="p-3 text-center">{count}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    );
+}
+
+// Reusable Stat Card Component
+const StatCard = ({ title, value, icon }) => (
+    <div className="bg-white p-6 rounded-lg shadow-md flex items-center gap-4 border-gray-400 hover:shadow-xl transition-all duration-200">
+        {icon}
+        <div>
+            <h4 className="text-lg font-semibold">{value}</h4>
+            <p className="text-gray-600">{title}</p>
         </div>
     </div>
-  );
-}
-/*<section className="admin-dashboard__settings">
-          <h2>Settings</h2>
-          <div className="card admin-dashboard__card">
-            <div className="card-header">General Settings</div>
-            <div className="card-body">
-              <form>
-                <div className="form-group">
-                  <label htmlFor="siteName">Site Name</label>
-                  <input type="text" className="form-control" id="siteName" defaultValue="My Learning Platform" />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="adminEmail">Admin Email</label>
-                  <input type="email" className="form-control" id="adminEmail" defaultValue="admin@example.com" />
-                </div>
-                <button type="submit" className="btn btn-success">Save Settings</button>
-              </form>
-            </div>
-          </div>
-        </section>*/
+);

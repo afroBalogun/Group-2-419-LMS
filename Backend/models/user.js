@@ -42,9 +42,9 @@ const userSchema = new mongoose.Schema(
         enrolledCourses: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Course", // Reference to a Course model
-            },
-        ],
+                ref: "Course", // Ensure it references the Course model correctly
+            }
+        ],        
         grades: [
             {
                 course: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
