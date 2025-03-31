@@ -39,47 +39,78 @@ export default function TeacherLogin() {
 
     return (
         <div className="w-full flex items-center justify-center min-h-screen">
-            <div className="py-8 px-4 flex md:flex-grow md:place-items-center">
                 <div className="max-w-[500px] w-full bg-white shadow-md rounded px-6 pt-6 pb-8 mt-20 md:mt-10 md:px-8 2xl:px-10 2xl:max-w-[800px]">
-                    <h2 className="text-center text-2xl md:text-4xl 2xl:text-5xl font-semibold text-gray-800 mb-6">
+                    <h2 className="text-2xl font-bold text-center text-gray-700 mb-4">
                         Teacher Dashboard Login
                     </h2>
 
                     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="flex flex-col">
-                            <label className="text-sm md:text-[1em] 2xl:text-xl font-semibold">Email:</label>
-                            <input
-                                type="email"
-                                placeholder="Enter Your Email"
-                                className="bg-gray-100 py-2 px-4 rounded-lg outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 text-sm md:text-[1em] 2xl:text-lg"
-                                {...register("email", { required: "Email is required" })}
-                            />
-                            {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
-                        </div>
+                    <div className="flex flex-col">
+                        <label className="text-gray-700 font-medium">Email:</label>
+                        <input
+                            type="email"
+                            autoFocus
+                            placeholder="Enter your email"
+                            className={`bg-gray-100 p-2 rounded-md outline-none border ${
+                                errors.email ? "border-red-500" : "border-gray-300"
+                            } focus:ring-2 focus:ring-blue-400`}
+                            {...register("email", { required: "Email is required" })}
+                        />
+                        {errors.email && (
+                            <p className="text-red-500 text-sm">{errors.email.message}</p>
+                        )}
+                    </div>
 
-                        <div className="flex flex-col">
-                            <label className="text-sm md:text-[1em] 2xl:text-xl font-semibold">Password:</label>
-                            <input
-                                type="password"
-                                placeholder="Enter your password"
-                                className="bg-gray-100 py-2 px-4 rounded-lg outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 text-sm md:text-[1em] 2xl:text-lg"
-                                {...register("password", { required: "Password is required" })}
-                            />
-                            {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
-                        </div>
+                    <div className="flex flex-col">
+                        <label className="text-gray-700 font-medium">Password:</label>
+                        <input
+                            type="password"
+                            placeholder="Enter your password"
+                            className={`bg-gray-100 p-2 rounded-md outline-none border ${
+                                errors.password ? "border-red-500" : "border-gray-300"
+                            } focus:ring-2 focus:ring-blue-400`}
+                            {...register("password", { required: "Password is required" })}
+                        />
+                        {errors.password && (
+                            <p className="text-red-500 text-sm">{errors.password.message}</p>
+                        )}
+                    </div>
 
-                        {errors.root && <p className="text-red-500 text-center">{errors.root.message}</p>}
-
-                        <button
-                            type="submit"
-                            disabled={isLoading}
-                            className="bg-blue-500 hover:bg-blue-600 p-3 text-white rounded-lg mt-4 transition-all duration-200 font-semibold text-lg"
-                        >
-                            {isLoading ? "Logging in..." : "Login"}
-                        </button>
-                    </form>
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="bg-blue-500 text-white py-2 rounded-md font-semibold hover:bg-blue-600 transition-all duration-200 disabled:bg-blue-300"
+                    >
+                        {isLoading ? (
+                            <span className="flex justify-center items-center">
+                                <svg
+                                    className="animate-spin h-5 w-5 mr-2 text-white"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <circle
+                                        className="opacity-25"
+                                        cx="12"
+                                        cy="12"
+                                        r="10"
+                                        stroke="currentColor"
+                                        strokeWidth="4"
+                                    ></circle>
+                                    <path
+                                        className="opacity-75"
+                                        fill="currentColor"
+                                        d="M4 12a8 8 0 018-8v8H4z"
+                                    ></path>
+                                </svg>
+                                Logging in...
+                            </span>
+                        ) : (
+                            "Login"
+                        )}
+                    </button>
+                </form>
                 </div>
-            </div>
         </div>
     );
 }

@@ -2,34 +2,37 @@ import { useNavigate } from "react-router";
 import { useGetUserByIdQuery } from "../../redux/users/users";
 import useUserId from "../../utils/useUserId";
 import { useEffect, useState } from "react";
-import useCourses from "../../utils/useCourses";
 import Loading from "../../components/Loading";
+import { useGetCoursesQuery } from "../../redux/courses/course";
 
 export default function StudentDashboard() {
     const navigate = useNavigate();
     const studentId = useUserId();
-    const [refresh, setRefresh] = useState(false);
+    const [filteredCourses, setFilteredCourses] = useState([]);
 
-    
-    // If no userId, redirect to login
+    // Redirect to login if no studentId
     useEffect(() => {
         if (!studentId) navigate("/student/login");
     }, [studentId, navigate]);
 
+    // Fetch all courses
+    const { data: courses, isLoading, error } = useGetCoursesQuery();
+    
     // Fetch student data
-    const { data: student, isLoading, error } = useGetUserByIdQuery(studentId, {
-        skip: !studentId,
-    });
+    const { data: student } = useGetUserByIdQuery(studentId, { skip: !studentId });
 
-    // Force refetch when `refresh` changes
+    // Filter courses where student is enrolled
     useEffect(() => {
-        if (studentId) {
-            setRefresh((prev) => !prev); 
+        if (courses && studentId) {
+            const enrolledCourses = courses.filter(course => 
+                course.students?.includes(studentId)
+            );
+            setFilteredCourses(enrolledCourses);
         }
-    }, [student?.enrolledCourses]);
+    }, [courses, studentId]);
 
-    const { courses } = useCourses();
-    console.log("Courses:", courses);
+    if (isLoading) return <Loading />;
+    if (error) return <p className="text-red-500 text-center">Error fetching courses</p>;
 
     return (
         <main className="px-8 py-4 flex flex-col gap-6">
@@ -38,9 +41,9 @@ export default function StudentDashboard() {
             <section>
                 <h3 className="text-lg font-bold text-gray-700">Enrolled Courses:</h3>
 
-                {courses.length > 0 ? (
+                {filteredCourses.length > 0 ? (
                     <ul className="p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {courses.map((course) => (
+                        {filteredCourses.map((course) => (
                             <li
                                 key={course._id}
                                 className="shadow-lg w-full p-5 flex flex-col gap-3 rounded-md bg-white hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
