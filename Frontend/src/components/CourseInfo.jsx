@@ -25,7 +25,7 @@ export default function CourseInfoPage() {
     const enrolledStudents = allUsers?.filter((user) => course.students.includes(user._id)) || [];
 
     return (
-        <div className="p-6 max-w-2xl mx-auto bg-white shadow-lg rounded-lg mt-4">
+        <div className="p-6 max-w-2xl mx-auto bg-white shadow-lg rounded-lg my-4">
             {/* Course Title */}
             <h1 className="text-3xl font-bold text-orange-800 mb-2">{course.title}</h1>
             <p className="text-gray-700 text-lg">{course.description}</p>

@@ -43,7 +43,7 @@ export default function TeacherDashboard() {
                                 <h4 className="font-semibold text-xl text-orange-800">{course.title}</h4>
                                 <p className="text-gray-700">{course.description}</p>
                                 <p className="text-sm text-gray-600">
-                                    Students Enrolled: <span className="font-bold">{course.students.length} student(s)</span>
+                                    Students Enrolled: <span className="font-bold">{course.students?.length} student(s)</span>
                                 </p>
                             </li>
                         ))}
