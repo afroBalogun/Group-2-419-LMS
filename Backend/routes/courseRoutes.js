@@ -1,5 +1,5 @@
 const express = require("express");
-const { createCourse, getCourses, getCourseById, enrollStudent, updateCourseProgress, deleteCourse, removeCourse, updateCourse, getTotalEnrollments } = require("../controllers/course.js");
+const { createCourse, getCourses, getCourseById, enrollStudent, updateCourseProgress, deleteCourse, removeCourse, updateCourse, getTotalEnrollments, markAssignment } = require("../controllers/course.js");
 const { verifyTeacher } = require("../middlewares/verifyTeacher.js");
 
 const router = express.Router();
@@ -13,5 +13,6 @@ router.patch("/update-course/:id", updateCourseProgress); // Update course progr
 router.delete("/delete-course/:id", verifyTeacher, deleteCourse); // Delete course
 router.delete("/remove/:courseId/:studentId", removeCourse);
 router.put("/update/:courseId", verifyTeacher, updateCourse);
+router.post("/:courseId/assignments/:assignmentId/complete", verifyTeacher, markAssignment); // Mark assignment as completed
 
 module.exports = router;

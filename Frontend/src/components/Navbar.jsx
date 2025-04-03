@@ -5,6 +5,11 @@ import { FaUserCircle, FaSignOutAlt, FaHome, FaChalkboardTeacher } from "react-i
 import { Link, useLocation } from "react-router";
 import useLogout from "../utils/LogOut";
 import Loading from "./Loading";
+import { IoIosHelpCircleOutline } from "react-icons/io";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { FaRegCircleUser } from "react-icons/fa6";
+
+
 
 export default function Navbar() {
     const userId = useUserId();
@@ -38,25 +43,56 @@ export default function Navbar() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    if (isLoading) return <nav className="bg-blue-500"><Loading/></nav>;
+    if (isLoading) return <nav className="bg-orange-800"></nav>;
     if (error) return <nav className="bg-red-500"><h2>Error loading user</h2></nav>;
 
     return (
-        <nav className="w-full bg-blue-500 p-4 shadow-lg text-white relative">
-            {/* Top Bar */}
-            <div className="flex justify-between items-center gap-2">
-                {/* Logo & Welcome Text */}
-                <div className="flex items-center gap-2">
-                    <h2 className="text-2xl font-bold">Welcome, {user?.name || "Guest"}</h2>
-                    <span className="text-sm font-medium bg-white text-blue-500 px-2 py-1 rounded-md">
-                        {user.role}
-                    </span>
-                </div>
+        <nav className="w-full relative">
 
-                {/* Profile & Menu Button */}
-                <div className="flex items-center gap-4">
-                    <FaUserCircle onClick={toggleDropDown} className="text-4xl cursor-pointer hover:scale-110 transition-all" />
+            {/* Header */}
+            <header className="bg-orange-800 text-white flex justify-between items-center mb-6 p-2 ">
+                <a href="/" className="logo flex items-center gap-2">
+                    <img src="/images/logo.jpg" alt="logo" className="w-10 h-10 rounded-full" />
+                    <h2>Naijirian</h2>
+                </a>
+
+                {/* Menu */}
+                <div className="menu-options flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                        <IoIosHelpCircleOutline size={25}/>
+                        <p>Help</p>
+                    </div>
+                    <div className="flex items-center gap-4">                
+                        <div className="flex items-center gap-4">
+                            <FaRegCircleUser  size={30} className="cursor-pointer hover:scale-110 transition-all" />
+                        </div>
+                        <div className="flex items-center gap-2 cursor-pointer" onClick={toggleDropDown} >
+                            <p className="hover:underline">Account</p>
+                            <RiArrowDropDownLine size={25}/>
+                        </div>
+                    </div>
                 </div>
+            </header>
+
+
+            {/* Welcome and NavLinks*/}
+            <div className="flex text-gray-800 flex-col justify-between gap-2 px-28 ">
+                <div className="border-b-[2px] border-gray-200">
+                    {/* Logo & Welcome Text */}
+                    <div className="flex items-center gap-2">
+                        <h2 className="text-3xl font-bold">Hi, {user?.name || "Guest"}!</h2>
+                    </div>
+
+                    {/* Navbar Links */}
+                    <div className={`relative top-2 mt-2 transition-all duration-200 flex`}>
+                        <ul className="flex flex-wrap md:flex-row gap-4">
+                            <NavItem to={`/${role}/dashboard`} label="My Library" className= "w-20" />
+                            <NavItem to={`/${role}/dashboard/courses`} label="Manage Courses" className= "w-20" />
+                            {isInAdmin && <NavItem to={`/${role}/dashboard/manage-users`} label="Users" className= "w-20" />}
+                        </ul>
+                    </div>
+                </div>
+                
             </div>
 
             {/* Dropdown Menu */}
@@ -79,21 +115,14 @@ export default function Navbar() {
                 </li>
             </ul>
 
-            {/* Navbar Links */}
-            <div className={`px-6 mt-4 transition-all duration-200 flex justify-center `}>
-                <ul className="flex flex-wrap md:flex-row gap-4">
-                    <NavItem to={`/${role}/dashboard`} icon={<FaHome />} label="Dashboard" className= "w-20" />
-                    <NavItem to={`/${role}/dashboard/courses`} icon={<FaChalkboardTeacher />} label="Courses" className= "w-20" />
-                    {isInAdmin && <NavItem to={`/${role}/dashboard/manage-users`} icon={<FaUserCircle />} label="Users" className= "w-20" />}
-                </ul>
-            </div>
+
         </nav>
     );
 }
 
 // Reusable Nav Item Component
 const NavItem = ({ to, icon, label }) => (
-    <li className="bg-green-600 px-4 py-2 rounded-lg shadow-md hover:scale-105 transition-all flex items-center gap-2">
+    <li className={`py-2 flex items-center gap-2 transition-all ${location.pathname === to ? "underline underline-offset-8 font-bold" : "hover:underline hover:underline-offset-8 hover:scale-105"}`}>
         <Link to={to} className="flex items-center gap-2">{icon} {label}</Link>
     </li>
 );

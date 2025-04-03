@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import usersApi from "../../redux/users/users";
 import { useForm } from "react-hook-form";
+import SomeNav from "../../components/SomeNav";
 
 export default function TeacherLogin() {
     const dispatch = useDispatch();
@@ -38,8 +39,10 @@ export default function TeacherLogin() {
     };
 
     return (
-        <div className="w-full flex items-center justify-center min-h-screen">
-                <div className="max-w-[500px] w-full bg-white shadow-md rounded px-6 pt-6 pb-8 mt-20 md:mt-10 md:px-8 2xl:px-10 2xl:max-w-[800px]">
+        <div className="w-full">
+            <SomeNav/>
+            <div className="w-full flex items-center justify-center min-h-screen bg-[url(/images/teach-board.jpg)] bg-cover bg-center">
+                <div className="relative max-w-[500px] w-full bg-white shadow-md rounded px-6 pt-6 pb-8 mt-20 md:mt-10 md:px-8 2xl:px-10 2xl:max-w-[800px] z-10">
                     <h2 className="text-2xl font-bold text-center text-gray-700 mb-4">
                         Teacher Dashboard Login
                     </h2>
@@ -53,7 +56,7 @@ export default function TeacherLogin() {
                             placeholder="Enter your email"
                             className={`bg-gray-100 p-2 rounded-md outline-none border ${
                                 errors.email ? "border-red-500" : "border-gray-300"
-                            } focus:ring-2 focus:ring-blue-400`}
+                            } focus:ring-2 focus:ring-orange-400`}
                             {...register("email", { required: "Email is required" })}
                         />
                         {errors.email && (
@@ -68,7 +71,7 @@ export default function TeacherLogin() {
                             placeholder="Enter your password"
                             className={`bg-gray-100 p-2 rounded-md outline-none border ${
                                 errors.password ? "border-red-500" : "border-gray-300"
-                            } focus:ring-2 focus:ring-blue-400`}
+                            } focus:ring-2 focus:ring-orange-400`}
                             {...register("password", { required: "Password is required" })}
                         />
                         {errors.password && (
@@ -79,7 +82,7 @@ export default function TeacherLogin() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="bg-blue-500 text-white py-2 rounded-md font-semibold hover:bg-blue-600 transition-all duration-200 disabled:bg-blue-300"
+                        className="bg-orange-800 text-white py-4 rounded-md font-semibold hover:bg-orange-900 transition-all duration-200 disabled:bg-orange-950 hover:cursor-pointer"
                     >
                         {isLoading ? (
                             <span className="flex justify-center items-center">
@@ -111,6 +114,7 @@ export default function TeacherLogin() {
                     </button>
                 </form>
                 </div>
+            </div>
         </div>
     );
 }

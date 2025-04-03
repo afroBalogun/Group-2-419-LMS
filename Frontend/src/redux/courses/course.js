@@ -102,6 +102,15 @@ export const courseApi = createApi({
             },
             providesTags: ['Course'], 
         }),
+
+        markAssignmentCompleted: builder.mutation({
+            query: ({ courseId, assignmentId, studentId }) => ({
+                url: `/${courseId}/assignments/${assignmentId}/complete`,
+                method: "POST",
+                body: { studentId },
+            }),
+            invalidatesTags: ["Course"], // Refresh course data after submission
+        })
     
     }),
 });
@@ -115,7 +124,8 @@ export const {
     useDeleteCourseMutation,
     useRemoveStudentMutation,
     useUpdateCourseMutation,
-    useGetTotalEnrollmentsQuery 
+    useGetTotalEnrollmentsQuery ,
+    useMarkAssignmentCompletedMutation,
 } = courseApi;
 
 export default courseApi;

@@ -26,11 +26,11 @@ export default function TeacherDashboard() {
     if (error) return <p className="text-red-500">Error: {error.message}</p>;
 
     return (
-        <main className="px-8 py-4 flex flex-col gap-4">
-            <h2 className="text-xl font-bold">Teacher Dashboard</h2>
+        <main className="px-28 py-4 flex flex-col gap-4">
+            <h2 className="text-xl font-bold text-gray-800">Teacher Dashboard</h2>
 
             <section>
-                <h2 className="text-lg font-bold">Teaching Courses:</h2>
+                <h2 className="text-lg font-bold text-gray-800">Teaching Courses:</h2>
                 
                 {courses.length > 0 ? (
                     <ul className="p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -40,7 +40,7 @@ export default function TeacherDashboard() {
                                 className="shadow-md w-full p-4 py-6 flex flex-col gap-3 bg-white rounded-lg transition-all duration-200 hover:cursor-pointer hover:scale-105"
                                 onClick={() => navigate(`/teacher/dashboard/course/${course._id}`)} 
                             >
-                                <h4 className="font-semibold text-xl text-blue-500">{course.title}</h4>
+                                <h4 className="font-semibold text-xl text-orange-800">{course.title}</h4>
                                 <p className="text-gray-700">{course.description}</p>
                                 <p className="text-sm text-gray-600">
                                     Students Enrolled: <span className="font-bold">{course.students.length} student(s)</span>

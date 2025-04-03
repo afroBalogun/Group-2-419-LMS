@@ -6,6 +6,7 @@ import { useUpdateCourseMutation } from "../redux/courses/course";
 import Loading from "./Loading";
 import { useGetUserByIdQuery } from "../redux/users/users";
 import useUserId from "../utils/useUserId";
+import FileUpload from "./FileUpload";
 
 export default function EditCourse() {
     const { courseId } = useParams();
@@ -127,6 +128,7 @@ export default function EditCourse() {
                     >
                         + Add Assignment
                     </button>
+                    <FileUpload/>
 
                     <button 
                         type="submit"

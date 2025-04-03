@@ -21,6 +21,10 @@ import EditCourse from "../components/EditCourse";
 import ManageCourses from "../components/ManageCourses";
 import AddCourse from "../components/AddCourse";
 import ManageUsers from "../components/ManageUsers";
+import About from "../pages/About/About";
+import Contact from "../pages/Contact-us/Contact";
+import PrivacyPolicy from "../pages/Privacy Policy/PrivacyPolicy";
+import TermsOfService from "../pages/Terms Of Service/TermsOfService";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +34,22 @@ const router = createBrowserRouter([
             {
                 path: '',
                 element: <Home />
+            },
+            {
+                path: 'about',
+                element: <About />
+            },
+            {
+                path: 'contact-us',
+                element: <Contact />
+            },
+            {
+                path: 'privacy-policy',
+                element: <PrivacyPolicy />
+            },
+            {
+                path: 'terms-of-service',
+                element: <TermsOfService />
             },
             {
                 path: 'student',

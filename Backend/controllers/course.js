@@ -244,7 +244,33 @@ const getTotalEnrollments = async (req, res) => {
     }
 };
 
+const markAssignment = async (req, res) => {
+    const { courseId, assignmentId } = req.params;
+    const { studentId } = req.body;
+
+    try {
+        const course = await Course.findById(courseId);
+        if (!course) return res.status(404).json({ message: "Course not found" });
+
+        const assignment = course.assignments.id(assignmentId);
+        if (!assignment) return res.status(404).json({ message: "Assignment not found" });
+
+        if (!assignment.completedBy.includes(studentId)) {
+            assignment.completedBy.push(studentId);
+        }
+
+        // Update progress
+        const totalAssignments = course.assignments.length;
+        const completedAssignments = course.assignments.filter(a => a.completedBy.length > 0).length;
+        course.progress = Math.round((completedAssignments / totalAssignments) * 100);
+
+        await course.save();
+        res.json({ message: "Assignment marked as completed", progress: course.progress });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 
 
-module.exports = { createCourse, getCourses, getCourseById, enrollStudent, removeCourse, updateCourseProgress, deleteCourse, updateCourse, getTotalEnrollments };
+module.exports = { createCourse, getCourses, getCourseById, enrollStudent, removeCourse, updateCourseProgress, deleteCourse, updateCourse, getTotalEnrollments, markAssignment };

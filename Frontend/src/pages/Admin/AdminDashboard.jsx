@@ -17,7 +17,7 @@ export default function AdminDashboard() {
     const activeUsers = Math.floor(totalUsers * 0.75); // Assume 75% active users for now.
 
     return (
-        <main className="p-6 flex flex-col gap-8">
+        <main className="px-28 py-4  flex flex-col gap-8">
             {/* System Overview */}
             <section>
                 <h2 className="text-2xl font-bold mb-3">📊 System Overview</h2>

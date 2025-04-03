@@ -117,32 +117,36 @@ export default function ManageUsers() {
 
                 <h3 className="text-lg font-semibold mt-4">Users List</h3>
                 <ul className="border border-gray-200 rounded-md overflow-hidden">
-                    {users?.map((user) => (
-                        <li key={user._id} className="flex justify-between items-center max-[500px]:p-2 p-3 border-b">
-                            <span className="max-[500px]:text-sm">{user.name} ({user.role})</span>
-                            <div className="flex gap-2">
-                                <button 
-                                    onClick={() => handleEdit(user)} 
-                                    className="bg-[#008a63] flex justify-center items-center gap-1 text-white px-3 py-1 rounded-md 
-                                               hover:scale-105 transition-all duration-200"
-                                    aria-label={`Edit ${user.name}`}
-                                >
-                                    <FaEdit /> Edit
-                                </button>
-                                <button 
-                                    onClick={() => handleDelete(user._id)} 
-                                    className={`bg-red-500 flex justify-center items-center gap-1 text-white px-3 py-1 rounded-md 
-                                               hover:scale-105 transition-all duration-200
-                                               ${loadingUserId === user._id ? "opacity-50 cursor-not-allowed" : ""}`}
-                                    disabled={loadingUserId === user._id}
-                                    aria-label={`Delete ${user.name}`}
-                                >
-                                    {loadingUserId === user._id ? "Deleting..." : <><RiDeleteBin5Line /> Delete</>}
-                                </button>
-                            </div>
-                        </li>
-                    ))}
+                    {users
+                        ?.slice() // Create a copy to avoid mutating original state
+                        .sort((a, b) => a.name.localeCompare(b.name)) // Sort alphabetically by name
+                        .map((user) => (
+                            <li key={user._id} className="flex justify-between items-center max-[500px]:p-2 p-3 border-b">
+                                <span className="max-[500px]:text-sm">{user.name} ({user.role})</span>
+                                <div className="flex gap-2">
+                                    <button 
+                                        onClick={() => handleEdit(user)} 
+                                        className="bg-[#008a63] flex justify-center items-center gap-1 text-white px-3 py-1 rounded-md 
+                                                   hover:scale-105 transition-all duration-200"
+                                        aria-label={`Edit ${user.name}`}
+                                    >
+                                        <FaEdit /> Edit
+                                    </button>
+                                    <button 
+                                        onClick={() => handleDelete(user._id)} 
+                                        className={`bg-red-500 flex justify-center items-center gap-1 text-white px-3 py-1 rounded-md 
+                                                   hover:scale-105 transition-all duration-200
+                                                   ${loadingUserId === user._id ? "opacity-50 cursor-not-allowed" : ""}`}
+                                        disabled={loadingUserId === user._id}
+                                        aria-label={`Delete ${user.name}`}
+                                    >
+                                        {loadingUserId === user._id ? "Deleting..." : <><RiDeleteBin5Line /> Delete</>}
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
                 </ul>
+
             </section>
         </main>
     );

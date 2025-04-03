@@ -47,12 +47,12 @@ export default function TeacherCourses() {
             <section className="w-3/4 shadow-md flex flex-col gap-4 p-10 bg-white rounded-lg">
                 <div className="flex justify-between items-center">
                     <h2 className="text-xl font-bold">Courses</h2>
-                    <button 
+                    {/* <button 
                         onClick={() => navigate(`/teacher/dashboard/add-course`)}
                         className="text-white bg-blue-500 text-sm rounded-md px-4 py-2 hover:scale-105 hover:shadow-xl transition-all"
                     >
                         Add New Course
-                    </button>
+                    </button> */}
                 </div>
 
                 {teacherCourses.length === 0 ? (

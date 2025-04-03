@@ -5,7 +5,7 @@ export default function TeacherLayout() {
     return (
         <div className="w-screen">
             <Navbar/>
-            <Outlet/>
+            <Outlet className="min-h-screen"/>
         </div>
     )
 }

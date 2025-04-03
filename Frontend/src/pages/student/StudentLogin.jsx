@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import usersApi from "../../redux/users/users";
+import SomeNav from "../../components/SomeNav";
 
 export default function StudentLogin() {
     const dispatch = useDispatch();
@@ -45,7 +46,9 @@ export default function StudentLogin() {
     };
 
     return (
-        <div className="w-full flex justify-center items-center min-h-screen bg-gray-50">
+        <div className="w-full">
+            <SomeNav/>
+            <div className="w-full flex justify-center items-center min-h-screen bg-[url(/images/edu-heritage.jpg)] bg-cover bg-center">
             <div className="bg-white shadow-lg rounded-lg p-8 w-[90%] max-w-md md:max-w-lg">
                 <h2 className="text-2xl font-bold text-center text-gray-700 mb-4">
                     Student Dashboard Login
@@ -64,7 +67,7 @@ export default function StudentLogin() {
                             placeholder="Enter your email"
                             className={`bg-gray-100 p-2 rounded-md outline-none border ${
                                 errors.email ? "border-red-500" : "border-gray-300"
-                            } focus:ring-2 focus:ring-blue-400`}
+                            } focus:ring-2 focus:ring-orange-400`}
                             {...register("email", { required: "Email is required" })}
                         />
                         {errors.email && (
@@ -79,7 +82,7 @@ export default function StudentLogin() {
                             placeholder="Enter your password"
                             className={`bg-gray-100 p-2 rounded-md outline-none border ${
                                 errors.password ? "border-red-500" : "border-gray-300"
-                            } focus:ring-2 focus:ring-blue-400`}
+                            } focus:ring-2 focus:ring-orange-400`}
                             {...register("password", { required: "Password is required" })}
                         />
                         {errors.password && (
@@ -91,7 +94,7 @@ export default function StudentLogin() {
                         <span className="text-sm text-gray-600">Don't have an account?</span>
                         <Link
                             to="/student/register"
-                            className="text-blue-500 hover:underline"
+                            className="text-orange-800 hover:underline"
                         >
                             Sign Up
                         </Link>
@@ -100,7 +103,7 @@ export default function StudentLogin() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="bg-blue-500 text-white py-2 rounded-md font-semibold hover:bg-blue-600 transition-all duration-200 disabled:bg-blue-300"
+                        className="bg-orange-800 text-white py-4 rounded-md font-semibold hover:bg-orange-900 transition-all duration-200 disabled:bg-orange-950 hover:cursor-pointer"
                     >
                         {isLoading ? (
                             <span className="flex justify-center items-center">
@@ -132,6 +135,7 @@ export default function StudentLogin() {
                     </button>
                 </form>
             </div>
+        </div>
         </div>
     );
 }

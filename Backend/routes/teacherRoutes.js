@@ -13,6 +13,5 @@ router.get("/:teacherId/courses", getTeacherCourses);
 
 // router.post("/upload", verifyTeacher, uploadFile);
 
-router.post("/upload", verifyTeacher, upload.single("file"), uploadFile);
 
 module.exports = router;

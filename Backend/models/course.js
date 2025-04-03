@@ -21,14 +21,18 @@ const courseSchema = new mongoose.Schema(
         {
             title: { type: String, required: true },
             dueDate: { type: Date, required: true },
-            completed: { type: Boolean, default: false },
-         },
+            completedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // List of students who completed
+        },
     ],
     // Overall progress percentage of the course
     progress: { 
-        type: Number,
+        type: Number, 
          default: 0 
     }, 
+    courseMaterial: {
+        type: String,
+        required: true, // URL or path to the course material
+    },
   },
   { timestamps: true }
 );
